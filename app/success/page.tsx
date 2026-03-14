@@ -118,7 +118,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <main className="min-h-screen bg-slate-950 flex items-center justify-center py-12">
+    <main className="min-h-screen bg-white flex items-center justify-center py-12">
       <Suspense fallback={<div className="text-center text-gray-500">読み込み中...</div>}>
         <SuccessContent />
       </Suspense>
