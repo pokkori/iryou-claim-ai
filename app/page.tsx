@@ -71,15 +71,19 @@ export default function IryouLP() {
       {showPayjp && (
         <PayjpModal
           publicKey={PAYJP_PUBLIC_KEY}
-          planLabel={selectedPlan === "business" ? "プロプラン ¥9,800/月（病院・医療法人向け）" : "スタンダードプラン ¥4,980/月（クリニック向け）"}
+          planLabel={selectedPlan === "business" ? "プロプラン ¥9,800/月（病院・医療法人向け）" : "クリニックプラン ¥9,800/月"}
           plan={selectedPlan}
           onSuccess={() => { setShowPayjp(false); window.location.href = "/success"; }}
           onClose={() => setShowPayjp(false)}
         />
       )}
 
-      <div className="bg-yellow-50 border-b border-yellow-200 text-yellow-800 text-center text-xs py-2 px-4">
-        本サービスは法的助言・弁護士業務ではありません。AIによる参考情報の提供です。
+      <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-center text-xs py-2.5 px-4 font-medium">
+        ⚠️ 本サービスはAIによる参考情報の提供です。法的対応・患者対応については弁護士・医師賠償責任保険の担当者にご相談ください。
+      </div>
+
+      <div className="bg-blue-700 text-white text-center text-sm font-semibold py-2.5 px-4">
+        🚨 カスハラ対策義務化（2026年10月1日施行）まで{daysLeft !== null ? <strong> あと{daysLeft}日 </strong> : ""}— 医療機関も対象です
       </div>
 
       <nav className="border-b border-gray-100 px-6 py-4 sticky top-0 bg-white/95 backdrop-blur z-10">
@@ -87,17 +91,12 @@ export default function IryouLP() {
           <span className="font-bold text-gray-900">🏥 医療クレームAI</span>
           <Link
             href="/tool"
-            className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors"
           >
             無料で試す（3回）
           </Link>
         </div>
       </nav>
-
-      <div className="bg-blue-700 text-white text-center text-sm font-semibold py-2.5 px-4">
-        🚨 改正労働施策総合推進法・カスハラ体制整備が2026年10月義務化
-        {daysLeft !== null && daysLeft > 0 && <strong> — あと{daysLeft}日</strong>}
-      </div>
 
       <section className="max-w-4xl mx-auto px-6 py-20 text-center">
         <div className="inline-block bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full mb-6">
@@ -105,7 +104,7 @@ export default function IryouLP() {
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
           患者・家族からのカスハラ。<br />
-          <span className="text-blue-600">医療スタッフを守る対応文が30秒で作れます。</span>
+          <span className="text-blue-600">医療スタッフを守る対応文が15秒で作れます。</span>
         </h1>
         <p className="text-lg text-gray-500 mb-4 max-w-2xl mx-auto">
           暴言・医療過誤クレーム・セクハラ・深夜救急の乱用——医療現場特有のカスハラに特化したAIが、
@@ -129,7 +128,7 @@ export default function IryouLP() {
           onClick={() => openPayjp("standard")}
           className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 mb-3 transition-colors"
         >
-          クリニックプランで始める ¥4,980/月 →
+          クリニックプランで始める ¥9,800/月 →
         </button>
         <p className="text-sm text-gray-500">登録不要・クレジットカード払い・いつでも解約可能</p>
       </section>
@@ -240,12 +239,12 @@ export default function IryouLP() {
 
       <section className="bg-blue-700 py-16 text-center px-6 text-white">
         <h2 className="text-2xl font-bold mb-3">医療スタッフを、カスハラから守りましょう</h2>
-        <p className="text-blue-200 text-sm mb-8">30秒で対応文生成。毅然とした対応で医療機関とスタッフを守る。</p>
+        <p className="text-blue-200 text-sm mb-8">15秒で対応文生成。毅然とした対応で医療機関とスタッフを守る。</p>
         <button
           onClick={() => setShowPayjp(true)}
           className="inline-block bg-white text-blue-700 font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-50 shadow-lg transition-colors"
         >
-          クリニックプランで始める ¥4,980/月 →
+          クリニックプランで始める ¥9,800/月 →
         </button>
       </section>
 

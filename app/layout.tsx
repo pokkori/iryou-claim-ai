@@ -7,8 +7,8 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 const SITE_URL = "https://iryou-claim-ai.vercel.app";
-const TITLE = "医療クレームAI｜患者・家族からのカスハラ対応文を30秒で生成｜クリニック・病院向け";
-const DESC = "患者・家族からの暴言・過剰要求・医療過誤クレームに。改正労働施策総合推進法（2026年10月義務化）準拠の対応文・断り文・証拠記録テンプレートをAIが即生成。クリニック向け¥4,980/月。";
+const TITLE = "医療クレームAI｜患者・家族からのカスハラ対応文を15秒で生成｜クリニック・病院向け";
+const DESC = "患者・家族からの暴言・過剰要求・医療過誤クレームに。改正労働施策総合推進法（2026年10月義務化）準拠の対応文・断り文・インシデントレポートをAIが即生成。クリニック向け¥9,800/月。";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -39,14 +39,7 @@ const jsonLd = {
       "url": SITE_URL,
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "offers": {
-        "@type": "AggregateOffer",
-        "offerCount": "2",
-        "offers": [
-          { "@type": "Offer", "price": "4980", "priceCurrency": "JPY", "description": "スタンダードプラン（クリニック向け）¥4,980/月" },
-          { "@type": "Offer", "price": "9800", "priceCurrency": "JPY", "description": "プロプラン（病院・医療法人向け）¥9,800/月" }
-        ]
-      },
+      "offers": { "@type": "Offer", "price": "9800", "priceCurrency": "JPY", "description": "クリニックプラン ¥9,800/月" },
       "description": DESC,
     },
     {

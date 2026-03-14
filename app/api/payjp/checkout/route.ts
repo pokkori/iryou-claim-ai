@@ -21,8 +21,7 @@ async function payjpPost(path: string, body: Record<string, string>) {
 }
 
 const PLANS: Record<string, string> = {
-  standard: process.env.PAYJP_PLAN_STD!,
-  business: process.env.PAYJP_PLAN_BIZ!,
+  standard: process.env.PAYJP_PLAN_IRYO_MONTHLY!,
 };
 
 export async function POST(req: NextRequest) {
