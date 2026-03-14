@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import PayjpModal from "@/components/PayjpModal";
 
 const CASE_TYPES = [
   "暴言・威圧",
@@ -19,6 +20,7 @@ const SEVERITY_LEVELS = [
 ];
 
 const FREE_LIMIT = 3;
+const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
 function parseResult(text: string) {
   const sections = text.split(/^---$/m).map((s) => s.trim()).filter(Boolean);
@@ -35,6 +37,7 @@ export default function IryouTool() {
   const [error, setError] = useState("");
   const [count, setCount] = useState(0);
   const [hitLimit, setHitLimit] = useState(false);
+  const [showPayjp, setShowPayjp] = useState(false);
 
   const handleGenerate = async () => {
     if (!situation.trim()) { setError("状況を入力してください"); return; }
@@ -67,14 +70,27 @@ export default function IryouTool() {
           <p className="text-gray-500 text-sm mb-6">
             プレミアムプランで医療クレーム対応文を無制限に生成できます。
           </p>
-          <a
-            href="/"
+          <button
+            onClick={() => setShowPayjp(true)}
             className="block w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors mb-3"
           >
-            プランを見る →
-          </a>
+            医療機関プランに申し込む（¥9,800/月）
+          </button>
           <a href="/" className="text-sm text-gray-400 hover:underline">トップへ戻る</a>
         </div>
+
+        {showPayjp && (
+          <PayjpModal
+            publicKey={PAYJP_PUBLIC_KEY}
+            planLabel="医療機関プラン ¥9,800/月"
+            plan="standard"
+            onSuccess={() => {
+              setShowPayjp(false);
+              setHitLimit(false);
+            }}
+            onClose={() => setShowPayjp(false)}
+          />
+        )}
       </main>
     );
   }
@@ -184,6 +200,19 @@ export default function IryouTool() {
           </div>
         )}
       </div>
+
+      {showPayjp && (
+        <PayjpModal
+          publicKey={PAYJP_PUBLIC_KEY}
+          planLabel="医療機関プラン ¥9,800/月"
+          plan="standard"
+          onSuccess={() => {
+            setShowPayjp(false);
+            setHitLimit(false);
+          }}
+          onClose={() => setShowPayjp(false)}
+        />
+      )}
     </main>
   );
 }
