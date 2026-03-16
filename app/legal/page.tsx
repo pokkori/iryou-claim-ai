@@ -31,6 +31,27 @@ export default function LegalPage() {
             </div>
           ))}
         </dl>
+
+        <div className="mt-10 bg-amber-50 border border-amber-200 rounded-xl p-6">
+          <h2 className="text-base font-bold text-amber-900 mb-3">免責事項・法的制限について</h2>
+          <ul className="space-y-3 text-sm text-amber-800 leading-relaxed list-disc list-inside">
+            <li>
+              本サービスはAIによる参考情報の提供を目的としており、<strong>法的助言・医療アドバイスには該当しません</strong>。
+            </li>
+            <li>
+              本サービスは<strong>弁護士法第72条</strong>に基づき、法律事務（法的判断・交渉代行・訴訟指導等）を取り扱いません。法的な対応が必要な場合は弁護士にご相談ください。
+            </li>
+            <li>
+              本サービスが生成する文書は<strong>医師法・医療法に基づく医療行為・医療指導</strong>を行うものではありません。患者への医療的判断・診断・治療指針については必ず医師にご相談ください。
+            </li>
+            <li>
+              生成された対応文・インシデントレポートはあくまで参考文書です。実際にご使用の際は、医療機関の管理者・顧問弁護士・法務担当者が内容を確認・修正の上、責任をもってご使用ください。
+            </li>
+            <li>
+              本サービスの利用により生じたいかなる損害についても、ポッコリラボは責任を負いません。
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

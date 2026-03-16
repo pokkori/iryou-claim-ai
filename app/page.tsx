@@ -79,7 +79,7 @@ export default function IryouLP() {
       )}
 
       <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-center text-xs py-2.5 px-4 font-medium">
-        ⚠️ 本サービスはAIによる参考情報の提供です。法的対応・患者対応については弁護士・医師賠償責任保険の担当者にご相談ください。正当なご意見・改善要望はクレームとは区別して丁寧に対応することを推奨しています。
+        ⚠️ 本サービスはAIによる参考情報の提供であり、法的助言・医療アドバイスではありません。実際の対応は弁護士・医療機関の法務担当者にご相談ください。正当なご意見・改善要望はクレームとは区別して丁寧に対応することを推奨しています。
       </div>
 
       <div className="bg-blue-700 text-white text-center text-sm font-semibold py-2.5 px-4">

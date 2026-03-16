@@ -194,9 +194,10 @@ export default function IryouTool() {
                 </button>
               </div>
             ))}
-            <p className="text-xs text-center text-gray-400 mt-4">
-              ※ 本AIの出力は参考情報です。実際の対応は管理者・法的専門家にご相談ください。
-            </p>
+            <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 text-center">
+              ⚠️ この内容はAIが生成した参考文書です。法的助言・医療アドバイスではありません。<br />
+              実際の対応にご使用の際は、医療機関の弁護士・法務担当者に確認の上ご使用ください。
+            </div>
           </div>
         )}
       </div>
