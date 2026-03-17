@@ -185,7 +185,25 @@ export default function IryouTool() {
           >
             医療機関プランに申し込む（¥9,800/月）
           </button>
-          <a href="/" className="text-sm text-gray-400 hover:underline">トップへ戻る</a>
+          {/* 安心保証バッジ */}
+          <div className="flex items-center justify-center gap-4 mt-3">
+            <div className="flex items-center gap-1 text-xs text-slate-400">
+              <span>🔒</span>
+              <span>SSL暗号化決済</span>
+            </div>
+            <div className="flex items-center gap-1 text-xs text-slate-400">
+              <span>✅</span>
+              <span>いつでもキャンセル可能</span>
+            </div>
+            <div className="flex items-center gap-1 text-xs text-slate-400">
+              <span>💳</span>
+              <span>PAY.JP安全決済</span>
+            </div>
+          </div>
+          <p className="text-xs text-center text-slate-500 mt-2">
+            ※ プレミアムプランはいつでもキャンセル可能です
+          </p>
+          <a href="/" className="text-sm text-gray-400 hover:underline mt-3 block">トップへ戻る</a>
         </div>
 
         {showPayjp && (
