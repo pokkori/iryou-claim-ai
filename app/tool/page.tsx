@@ -205,17 +205,46 @@ export default function IryouTool() {
 
         {result.length > 0 && (
           <div className="space-y-4">
+            {/* Xシェアボタン（結果上部） */}
+            <div className="flex justify-end">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  "医療クレームAIで患者・家族からのカスハラ対応文を作成した。医師・看護師・受付スタッフを守るために。 #医療カスハラ #カスハラ対策 #医療現場"
+                )}&url=${encodeURIComponent("https://iryou-claim-ai.vercel.app")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-800 transition-colors"
+              >
+                𝕏 シェアする
+              </a>
+            </div>
             {result.map((section, i) => (
               <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
                 <div className="prose prose-sm max-w-none text-gray-700 whitespace-pre-wrap">{section}</div>
-                <button
-                  onClick={() => { navigator.clipboard.writeText(section); }}
-                  className="mt-3 text-xs text-blue-600 hover:underline"
-                >
-                  コピーする
-                </button>
+                <div className="flex items-center gap-3 mt-3">
+                  <button
+                    onClick={() => { navigator.clipboard.writeText(section); }}
+                    className="text-xs text-blue-600 hover:underline"
+                  >
+                    📋 コピーする
+                  </button>
+                </div>
               </div>
             ))}
+            {/* Xシェアボタン（結果下部・CTA） */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
+              <p className="text-sm font-bold text-blue-800 mb-2">同じ悩みを持つ医療スタッフへ届けましょう</p>
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  "医療現場のカスハラ対応文が30秒で作れるAIを使ってみた。暴言・医療過誤クレーム・セクハラで悩んでいる医療スタッフに教えてあげたい。 #医療カスハラ対策 #医療現場 #カスハラ"
+                )}&url=${encodeURIComponent("https://iryou-claim-ai.vercel.app")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-black text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-gray-800 transition-colors"
+              >
+                𝕏 でシェアして同僚に教える
+              </a>
+            </div>
             <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 text-center">
               ⚠️ この内容はAIが生成した参考文書です。法的助言・医療アドバイスではありません。<br />
               実際の対応にご使用の際は、医療機関の弁護士・法務担当者に確認の上ご使用ください。

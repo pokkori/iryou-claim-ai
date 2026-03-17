@@ -199,6 +199,27 @@ export default function IryouLP() {
         </div>
       </section>
 
+      {/* 利用者の声 */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-center mb-10">医療スタッフの声</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { role: "内科クリニック院長・50代", text: "「医療ミスだ、訴えてやる」という患者への対応にいつも困っていました。法的根拠のある落ち着いた対応文が作れるので、受付スタッフが自信を持って対応できるようになりました。" },
+              { role: "総合病院 医事課長・40代", text: "インシデントレポートの書き方が統一されておらず、弁護士への相談時に資料が不十分なことがありました。このツールで記録品質が格段に上がりました。" },
+              { role: "整形外科 看護師長・30代", text: "深夜救急を繰り返し利用する患者への断り文に悩んでいました。毅然とした書面通知文がすぐに作れて、院長・事務長への説明も楽になりました。" },
+            ].map((v, i) => (
+              <div key={i} className="bg-white rounded-xl p-5 border border-gray-200">
+                <div className="flex text-yellow-400 text-sm mb-3">{"★★★★★"}</div>
+                <p className="text-sm text-gray-700 mb-3 leading-relaxed">{v.text}</p>
+                <p className="text-xs text-gray-400">{v.role}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-gray-400 text-center mt-4">※個人の感想です。効果には個人差があります。</p>
+        </div>
+      </section>
+
       <section className="bg-gray-50 py-16">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-center mb-3">料金プラン</h2>
