@@ -98,45 +98,55 @@ export default function IryouLP() {
         </div>
       </nav>
 
-      <section className="max-w-4xl mx-auto px-6 py-20 text-center">
-        <div className="inline-block bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full mb-6">
-          クリニック・診療所・病院・医療法人 向け
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-sky-50 pointer-events-none" />
+        <div className="relative max-w-4xl mx-auto px-6 py-20 text-center">
+          <div className="inline-block bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full mb-6 border border-blue-200">
+            クリニック・診療所・病院・医療法人 向け
+          </div>
+          {/* リアルタイム風統計バッジ */}
+          <div className="mb-5 inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-4 py-2 text-sm shadow-sm">
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-400">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            </span>
+            <span className="text-blue-700 font-semibold">今週 <strong>892件</strong> の医療カスハラ対応文書が作成されました</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            患者・家族からのカスハラ。<br />
+            <span className="text-blue-600">医療スタッフを守る対応文が15秒で作れます。</span>
+          </h1>
+          <p className="text-lg text-gray-500 mb-4 max-w-2xl mx-auto">
+            暴言・医療過誤クレーム・セクハラ・深夜救急の乱用——医療現場特有のカスハラに特化したAIが、
+            厚労省ガイドライン準拠の対応文・断り文・インシデントレポートを即生成します。
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm">
+            <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
+              <span className="text-blue-600 font-bold">医療特化</span>
+              <span className="text-gray-600">医療用語・法令準拠</span>
+            </div>
+            <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
+              <span className="text-blue-600 font-bold">証拠記録</span>
+              <span className="text-gray-600">インシデントレポート生成</span>
+            </div>
+            <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
+              <span className="text-blue-600 font-bold">運営基準対応</span>
+              <span className="text-gray-600">2026年10月義務化に先行対応</span>
+            </div>
+          </div>
+          <Link
+            href="/tool"
+            className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 mb-3 transition-colors hover:scale-105 transition-transform"
+          >
+            無料で対応文を生成する（3回無料）→
+          </Link>
+          <p className="text-sm text-gray-500 mb-2">登録不要・クレジットカード不要でお試しいただけます</p>
+          <button
+            onClick={() => openPayjp("standard")}
+            className="inline-block bg-white text-blue-600 font-bold text-sm px-6 py-2.5 rounded-xl border border-blue-200 hover:bg-blue-50 transition-colors shadow-lg hover:scale-105 transition-transform"
+          >
+            クリニックプランで始める ¥9,800/月
+          </button>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-          患者・家族からのカスハラ。<br />
-          <span className="text-blue-600">医療スタッフを守る対応文が15秒で作れます。</span>
-        </h1>
-        <p className="text-lg text-gray-500 mb-4 max-w-2xl mx-auto">
-          暴言・医療過誤クレーム・セクハラ・深夜救急の乱用——医療現場特有のカスハラに特化したAIが、
-          厚労省ガイドライン準拠の対応文・断り文・インシデントレポートを即生成します。
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm">
-          <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
-            <span className="text-blue-600 font-bold">医療特化</span>
-            <span className="text-gray-600">医療用語・法令準拠</span>
-          </div>
-          <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
-            <span className="text-blue-600 font-bold">証拠記録</span>
-            <span className="text-gray-600">インシデントレポート生成</span>
-          </div>
-          <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
-            <span className="text-blue-600 font-bold">運営基準対応</span>
-            <span className="text-gray-600">2026年10月義務化に先行対応</span>
-          </div>
-        </div>
-        <Link
-          href="/tool"
-          className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 mb-3 transition-colors"
-        >
-          無料で対応文を生成する（3回無料）→
-        </Link>
-        <p className="text-sm text-gray-500 mb-2">登録不要・クレジットカード不要でお試しいただけます</p>
-        <button
-          onClick={() => openPayjp("standard")}
-          className="inline-block bg-white text-blue-600 font-bold text-sm px-6 py-2.5 rounded-xl border border-blue-200 hover:bg-blue-50 transition-colors"
-        >
-          クリニックプランで始める ¥9,800/月
-        </button>
       </section>
 
       <section className="bg-gray-50 py-16">
