@@ -124,13 +124,19 @@ export default function IryouLP() {
             <span className="text-gray-600">2026年10月義務化に先行対応</span>
           </div>
         </div>
-        <button
-          onClick={() => openPayjp("standard")}
+        <Link
+          href="/tool"
           className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 mb-3 transition-colors"
         >
-          クリニックプランで始める ¥9,800/月 →
+          無料で対応文を生成する（3回無料）→
+        </Link>
+        <p className="text-sm text-gray-500 mb-2">登録不要・クレジットカード不要でお試しいただけます</p>
+        <button
+          onClick={() => openPayjp("standard")}
+          className="inline-block bg-white text-blue-600 font-bold text-sm px-6 py-2.5 rounded-xl border border-blue-200 hover:bg-blue-50 transition-colors"
+        >
+          クリニックプランで始める ¥9,800/月
         </button>
-        <p className="text-sm text-gray-500">登録不要・クレジットカード払い・いつでも解約可能</p>
       </section>
 
       <section className="bg-gray-50 py-16">
