@@ -149,6 +149,38 @@ export default function IryouLP() {
         </div>
       </section>
 
+      {/* ペルソナ共感セクション */}
+      <section className="py-14 bg-white">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-center mb-2 text-gray-900">こんな状況で困っていませんか？</h2>
+          <p className="text-center text-gray-400 text-sm mb-8">クリニック・病院の院長・医事課・受付スタッフからよく聞く声です</p>
+          <div className="space-y-3">
+            {[
+              "「『医療ミスだ、訴えてやる』という患者への対応文を、法的根拠を持って書けない」",
+              "「深夜救急を繰り返し利用する患者に、毅然と断る書面を渡したい」",
+              "「受付スタッフへの暴言・怒鳴りが続くが、インシデントレポートの書き方がわからない」",
+              "「『弁護士に相談する』と脅してくる患者家族への対応を、院長一人で抱えている」",
+              "「カスハラを記録したいが、行政・保険会社への報告に使えるレベルの書き方がわからない」",
+            ].map((v, i) => (
+              <div key={i} className="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl px-5 py-4">
+                <span className="text-red-400 font-bold text-lg mt-0.5 shrink-0">✗</span>
+                <p className="text-sm text-gray-700 leading-relaxed">{v}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+            <p className="text-blue-800 font-bold text-base mb-2">医療クレームAIが、これら全てを解決します</p>
+            <p className="text-sm text-blue-700">状況を入力するだけで、医師法・医療法・厚労省ガイドライン準拠の対応文が15秒で生成されます。</p>
+            <Link
+              href="/tool"
+              className="inline-block mt-4 bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm"
+            >
+              無料で試してみる（3回・登録不要）→
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-gray-50 py-16">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-center mb-3">医療現場のカスハラは「特殊」です</h2>
@@ -274,15 +306,31 @@ export default function IryouLP() {
         </div>
       </section>
 
-      <section className="bg-blue-700 py-16 text-center px-6 text-white">
-        <h2 className="text-2xl font-bold mb-3">医療スタッフを、カスハラから守りましょう</h2>
-        <p className="text-blue-200 text-sm mb-8">15秒で対応文生成。毅然とした対応で医療機関とスタッフを守る。</p>
-        <button
-          onClick={() => setShowPayjp(true)}
-          className="inline-block bg-white text-blue-700 font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-50 shadow-lg transition-colors"
-        >
-          クリニックプランで始める ¥9,800/月 →
-        </button>
+      <section className="bg-blue-700 py-16 text-center px-4 text-white">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-blue-200 text-sm font-semibold mb-2">2026年10月 カスハラ対策義務化まで残りわずか</p>
+          <h2 className="text-2xl font-bold mb-3">医療スタッフを守る対応文が、今日から使えます</h2>
+          <p className="text-blue-200 text-sm mb-6">「また暴言があった」「また不当な医療ミス主張が来た」——その度に院長一人で抱えなくていい。<br className="hidden md:block" />AIが医師法・医療法準拠の毅然とした対応文とインシデントレポートを即生成します。</p>
+          <Link
+            href="/tool"
+            className="inline-block bg-white text-blue-700 font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-50 shadow-lg transition-colors mb-3 w-full sm:w-auto"
+          >
+            無料で3回試す（登録不要）→
+          </Link>
+          <div className="mt-2">
+            <button
+              onClick={() => openPayjp("standard")}
+              className="text-blue-100 text-sm underline hover:text-white transition-colors"
+            >
+              今すぐクリニックプラン（¥9,800/月）で無制限利用する →
+            </button>
+          </div>
+          <div className="flex justify-center gap-6 mt-6 text-blue-200 text-xs">
+            <span>✓ 登録不要</span>
+            <span>✓ 医師法・医療法準拠</span>
+            <span>✓ いつでも解約可</span>
+          </div>
+        </div>
       </section>
 
       <footer className="border-t py-6 text-center text-xs text-gray-400">
