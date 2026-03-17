@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import PayjpModal from "@/components/PayjpModal";
+import { track } from '@vercel/analytics';
 
 function renderMarkdown(text: string): string {
   const lines = text.split("\n");
@@ -127,6 +128,7 @@ export default function IryouTool() {
 
   const handleGenerate = async () => {
     if (!situation.trim()) { setError("状況を入力してください"); return; }
+    track('ai_generated', { service: '医療クレームAI' });
     setLoading(true);
     setError("");
     setTabs(null);
@@ -157,7 +159,7 @@ export default function IryouTool() {
       setActiveTab("💬 口頭スクリプト");
       setCount(newCount);
       localStorage.setItem(STORAGE_KEY, String(newCount));
-      if (newCount >= FREE_LIMIT) setHitLimit(true);
+      if (newCount >= FREE_LIMIT) { track('paywall_shown', { service: '医療クレームAI' }); setHitLimit(true); }
 
       // 達成感バナー表示
       setCompletionVisible(true);
@@ -180,7 +182,7 @@ export default function IryouTool() {
             プレミアムプランで医療クレーム対応文を無制限に生成できます。
           </p>
           <button
-            onClick={() => setShowPayjp(true)}
+            onClick={() => { track('upgrade_click', { service: '医療クレームAI', plan: 'standard' }); setShowPayjp(true); }}
             className="block w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors mb-3"
           >
             医療機関プランに申し込む（¥9,800/月）
