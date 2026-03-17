@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PayjpModal from "@/components/PayjpModal";
 
 const CASE_TYPES = [
@@ -20,6 +20,7 @@ const SEVERITY_LEVELS = [
 ];
 
 const FREE_LIMIT = 3;
+const STORAGE_KEY = "iryou_use_count";
 const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
 function parseResult(text: string) {
@@ -39,21 +40,42 @@ export default function IryouTool() {
   const [hitLimit, setHitLimit] = useState(false);
   const [showPayjp, setShowPayjp] = useState(false);
 
+  useEffect(() => {
+    const saved = parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10);
+    setCount(saved);
+    if (saved >= FREE_LIMIT) setHitLimit(true);
+  }, []);
+
   const handleGenerate = async () => {
     if (!situation.trim()) { setError("状況を入力してください"); return; }
     setLoading(true);
     setError("");
+    setResult([]);
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ caseType, requesterType, severity, situation }),
       });
-      const data = await res.json();
-      if (data.error === "LIMIT_REACHED") { setHitLimit(true); return; }
-      if (!res.ok || data.error) { setError(data.error || "エラーが発生しました"); return; }
-      setResult(parseResult(data.result));
-      setCount(data.count ?? count + 1);
+      if (!res.ok) {
+        const data = await res.json();
+        if (data.error === "LIMIT_REACHED") { setHitLimit(true); return; }
+        setError(data.error || "エラーが発生しました");
+        return;
+      }
+      const newCount = parseInt(res.headers.get("X-New-Count") || String(count + 1), 10);
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let fullText = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        fullText += decoder.decode(value, { stream: true });
+      }
+      setResult(parseResult(fullText));
+      setCount(newCount);
+      localStorage.setItem(STORAGE_KEY, String(newCount));
+      if (newCount >= FREE_LIMIT) setHitLimit(true);
     } catch {
       setError("通信エラーが発生しました。再試行してください。");
     } finally {
