@@ -421,6 +421,20 @@ export default function IryouTool() {
                   </a>
                   <p className="text-xs text-slate-400 text-center mt-2">※ 広告・PR掲載</p>
                 </div>
+                {/* ストレスケアアフィリエイト（A8.net SOELU） */}
+                <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-4">
+                  <p className="text-sm font-black text-cyan-900 mb-1">🧘 医療従事者のストレス発散・ヨガで心身リセット</p>
+                  <p className="text-xs text-cyan-700 mb-3">クレーム対応後の緊張・疲労をほぐすオンラインヨガ。自宅で好きな時間に受講でき、医療スタッフの心身ケアにおすすめです。</p>
+                  <a href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9" target="_blank" rel="noopener noreferrer sponsored"
+                    className="flex items-center justify-between bg-white border border-cyan-300 rounded-xl px-3 py-2.5 hover:bg-cyan-50 transition-colors">
+                    <div>
+                      <div className="text-sm font-bold text-slate-800">SOELU（ソエル）オンラインヨガ</div>
+                      <div className="text-xs text-slate-500">月額¥3,000〜 • 自宅で完結 • 初回30日無料</div>
+                    </div>
+                    <span className="text-cyan-600 font-bold text-xs bg-cyan-100 px-2 py-1 rounded-full shrink-0">無料で試す →</span>
+                  </a>
+                  <p className="text-xs text-slate-400 text-center mt-2">※ 広告・PR掲載</p>
+                </div>
                 <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 text-center">
                   ⚠️ この内容はAIが生成した参考文書です。法的助言・医療アドバイスではありません。<br />
                   実際の対応にご使用の際は、医療機関の弁護士・法務担当者に確認の上ご使用ください。
