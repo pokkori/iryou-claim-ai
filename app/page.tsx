@@ -333,6 +333,25 @@ export default function IryouLP() {
         </div>
       </section>
 
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-2xl mx-auto px-4">
+          <h2 className="text-xl font-bold text-center text-gray-800 mb-6">よくある質問</h2>
+          <div className="space-y-4">
+            {[
+              { q: "どんなクレーム・カスハラに対応していますか？", a: "怒鳴り・長時間拘束・治療への不当要求・SNS脅迫・診察拒否圧力など、医療現場で実際に起きる事例に広く対応しています。" },
+              { q: "応招義務があっても診察を断れますか？", a: "医師法上の応招義務と診療拒否権の区別をAIが判定します。暴力・脅迫・著しく不当な要求があれば診察を断れるケースをサポートします。" },
+              { q: "出力をそのまま使えますか？", a: "初動スクリプト・記録テンプレートはそのままご活用いただけます。警察通報・弁護士相談が必要な場合はAIが判定して誘導します。" },
+              { q: "料金はいくらですか？", a: "月額¥4,900（プレミアム）で全機能が使えます。病院・クリニック複数スタッフでの利用はX @levona_designへお問い合わせください。" },
+            ].map((faq, i) => (
+              <div key={i} className="bg-white rounded-xl p-5 shadow-sm">
+                <p className="font-semibold text-blue-800 mb-2 text-sm">Q. {faq.q}</p>
+                <p className="text-sm text-gray-600">A. {faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <footer className="border-t py-6 text-center text-xs text-gray-400">
         <div className="space-x-4 mb-2">
           <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
