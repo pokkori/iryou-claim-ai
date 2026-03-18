@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import PayjpModal from "@/components/PayjpModal";
 import KomojuButton from "@/components/KomojuButton";
 import { track } from '@vercel/analytics';
 
@@ -209,16 +208,13 @@ export default function IryouTool() {
         </div>
 
         {showPayjp && (
-          <PayjpModal
-            publicKey={PAYJP_PUBLIC_KEY}
-            planLabel="医療機関プラン ¥9,800/月"
-            plan="standard"
-            onSuccess={() => {
-              setShowPayjp(false);
-              setHitLimit(false);
-            }}
-            onClose={() => setShowPayjp(false)}
-          />
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+            <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
+              <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+              <h2 className="text-lg font-bold mb-4 text-center">プランに登録</h2>
+              <KomojuButton planId="business" planLabel="医療機関プラン ¥9,800/月を始める" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
+            </div>
+          </div>
         )}
       </main>
     );
@@ -446,16 +442,13 @@ export default function IryouTool() {
       </div>
 
       {showPayjp && (
-        <PayjpModal
-          publicKey={PAYJP_PUBLIC_KEY}
-          planLabel="医療機関プラン ¥9,800/月"
-          plan="standard"
-          onSuccess={() => {
-            setShowPayjp(false);
-            setHitLimit(false);
-          }}
-          onClose={() => setShowPayjp(false)}
-        />
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
+            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+            <h2 className="text-lg font-bold mb-4 text-center">プランに登録</h2>
+            <KomojuButton planId="business" planLabel="医療機関プラン ¥9,800/月を始める" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
+          </div>
+        </div>
       )}
     </main>
   );
