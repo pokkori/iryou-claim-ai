@@ -371,6 +371,7 @@ export default function IryouLP() {
         <div className="space-x-4 mb-2">
           <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
           <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
+          <Link href="/terms" className="hover:underline">利用規約</Link>
         </div>
         <p>医療クレームAI — ポッコリラボ</p>
         <p className="mt-1 text-gray-300">本AIの出力は参考情報です。実際の対応は管理者・法的専門家にご相談ください。</p>
