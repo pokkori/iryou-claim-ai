@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import PayjpModal from "@/components/PayjpModal";
+import KomojuButton from "@/components/KomojuButton";
 
 const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
@@ -69,13 +69,15 @@ export default function IryouLP() {
   return (
     <main className="min-h-screen bg-white">
       {showPayjp && (
-        <PayjpModal
-          publicKey={PAYJP_PUBLIC_KEY}
-          planLabel={selectedPlan === "business" ? "プロプラン ¥9,800/月（病院・医療法人向け）" : "クリニックプラン ¥9,800/月"}
-          plan={selectedPlan}
-          onSuccess={() => { setShowPayjp(false); window.location.href = "/success"; }}
-          onClose={() => setShowPayjp(false)}
-        />
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
+            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+            <div className="text-3xl mb-3 text-center">🏥</div>
+            <h2 className="text-lg font-bold mb-2 text-center">医療機関プラン</h2>
+            <p className="text-sm text-gray-500 mb-4 text-center">月額¥9,800で無制限利用</p>
+            <KomojuButton planId={selectedPlan ?? "business"} planLabel={selectedPlan === "business" ? "プロプラン ¥9,800/月を始める" : "クリニックプラン ¥9,800/月を始める"} className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
+          </div>
+        </div>
       )}
 
       <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-center text-xs py-2.5 px-4 font-medium">
