@@ -406,6 +406,21 @@ export default function IryouTool() {
                     ))}
                   </ol>
                 </div>
+                {/* 弁護士相談アフィリエイト（A8.net申請後URLを差し替え） */}
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                  <p className="text-sm font-black text-blue-900 mb-1">⚖️ 深刻なクレームは弁護士へ</p>
+                  <p className="text-xs text-blue-700 mb-3">脅迫・不退去・傷害リスクは弁護士対応が必須。医療機関向け顧問契約も確認できます。</p>
+                  {/* TODO: Replace href with A8.net affiliate URL after approval */}
+                  <a href="https://www.bengo4.com/c_1011/" target="_blank" rel="noopener noreferrer sponsored"
+                    className="flex items-center justify-between bg-white border border-blue-300 rounded-xl px-3 py-2.5 hover:bg-blue-50 transition-colors">
+                    <div>
+                      <div className="text-sm font-bold text-slate-800">弁護士ドットコム</div>
+                      <div className="text-xs text-slate-500">初回無料 • 医療機関・クリニック向け対応あり</div>
+                    </div>
+                    <span className="text-blue-600 font-bold text-xs bg-blue-100 px-2 py-1 rounded-full shrink-0">無料相談 →</span>
+                  </a>
+                  <p className="text-xs text-slate-400 text-center mt-2">※ 広告・PR掲載</p>
+                </div>
                 <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 text-center">
                   ⚠️ この内容はAIが生成した参考文書です。法的助言・医療アドバイスではありません。<br />
                   実際の対応にご使用の際は、医療機関の弁護士・法務担当者に確認の上ご使用ください。
