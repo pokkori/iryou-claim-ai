@@ -390,6 +390,22 @@ export default function IryouTool() {
                     𝕏 でシェアして同僚に教える
                   </a>
                 </div>
+                {/* 次のアクション3選 */}
+                <div className="bg-white border border-blue-200 rounded-xl p-4">
+                  <p className="text-sm font-bold text-blue-800 mb-3">📋 次にやるべきこと3選</p>
+                  <ol className="space-y-2">
+                    {[
+                      { icon: "📝", text: "上長・事務長に今回のケースを口頭で報告する" },
+                      { icon: "🗂️", text: "インシデント記録に日時・患者情報・対応内容を記録する" },
+                      { icon: "📞", text: "深刻なケース（脅迫・傷害リスク）は警察・弁護士に相談する" },
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                        <span className="text-lg leading-none">{item.icon}</span>
+                        <span>{i + 1}. {item.text}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
                 <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 text-center">
                   ⚠️ この内容はAIが生成した参考文書です。法的助言・医療アドバイスではありません。<br />
                   実際の対応にご使用の際は、医療機関の弁護士・法務担当者に確認の上ご使用ください。
