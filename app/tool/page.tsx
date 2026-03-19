@@ -315,6 +315,21 @@ export default function IryouTool() {
 
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">状況の詳細</label>
+            {/* シナリオプリセット */}
+            <div className="mb-2 flex flex-wrap gap-1.5">
+              {[
+                { label: "😡 暴言・怒鳴り", text: "患者の家族が診察室に押しかけ、「なぜ今日中に退院させないのか」「医療ミスだ、訴えてやる」と大声で怒鳴り続けている。受付スタッフが対応に困っている。" },
+                { label: "⏰ 長時間居座り", text: "診察終了後も「もっと説明しろ」「納得できない」と2時間以上居座り、他の患者の診察が滞っている。" },
+                { label: "💊 薬の変更要求", text: "患者がインターネット情報をもとに、担当医の処方に強く異議を唱え「〇〇を処方しろ」「この薬は効かない」と繰り返し要求してくる。" },
+                { label: "📱 録音・録画", text: "患者・家族が許可なく診察室内を録音・録画し、「Xで公開する」と脅している。プライバシーとスタッフへの影響が心配。" },
+                { label: "🏥 転院強要", text: "入院患者の家族が「他の病院に転院させる」「院長を出せ」と繰り返し要求し、主治医への罵倒も続いている。" },
+              ].map((p) => (
+                <button key={p.label} type="button" onClick={() => setSituation(p.text)}
+                  className="text-xs px-2.5 py-1.5 rounded-full border border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors font-medium">
+                  {p.label}
+                </button>
+              ))}
+            </div>
             <textarea
               value={situation}
               onChange={(e) => setSituation(e.target.value)}
