@@ -488,6 +488,22 @@ export default function IryouLP() {
         </div>
       </section>
 
+      {/* 医療カスハラガイドリンク（SEO内部リンク） */}
+      <section className="py-10 px-4 bg-blue-50 border-t border-blue-100">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs font-bold text-blue-700 tracking-widest uppercase mb-2">医療カスハラ対策情報</p>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">医療現場カスハラ対策完全ガイド</h2>
+          <p className="text-gray-500 text-sm mb-4">応招義務の正しい理解・医療過誤クレーム対応・2026年義務化まで医師法・医療法に基づき解説</p>
+          <Link
+            href="/blog/iryou-kasuhara"
+            className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm"
+          >
+            医療カスハラ対策完全ガイドを読む →
+          </Link>
+          <p className="text-xs text-gray-400 mt-2">応招義務・断れるケース・対応文書の作り方まで全解説</p>
+        </div>
+      </section>
+
       {/* X Share + LINE Share */}
       <section className="py-6 px-6 text-center">
         <div className="inline-flex flex-col sm:flex-row gap-2">

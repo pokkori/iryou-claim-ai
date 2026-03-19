@@ -89,7 +89,7 @@ const SEVERITY_LEVELS = [
   { value: "重度", label: "🔴 重度（暴言・脅迫・不当要求）", score: 9, color: "bg-red-500" },
 ];
 
-const TABS = ["💬 口頭スクリプト", "📄 書面通知文", "📋 インシデント記録"] as const;
+const TABS = ["💬 口頭スクリプト", "📄 書面通知文", "📋 インシデント記録", "📌 院内掲示通知"] as const;
 type TabLabel = typeof TABS[number];
 
 const FREE_LIMIT = 3;
@@ -98,11 +98,45 @@ const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
 function parseResultToTabs(text: string): Record<TabLabel, string> {
   const parts = text.split(/^---$/m).map((s) => s.trim()).filter(Boolean);
+  // 院内掲示通知は書面通知文から自動生成（掲示用に整形）
+  const keijiText = parts[1] ? generateKeijiText(parts[1]) : "";
   return {
     "💬 口頭スクリプト": parts[0] || "",
     "📄 書面通知文": parts[1] || "",
     "📋 インシデント記録": parts[2] || "",
+    "📌 院内掲示通知": keijiText,
   };
+}
+
+function generateKeijiText(shomenText: string): string {
+  return `# 院内掲示用 患者・ご家族へのお知らせ
+
+当院では、医療スタッフが安全・安心に医療サービスを提供できる環境を守るため、以下の行為に対して毅然と対応いたします。
+
+## 対応しかねる行為
+
+- 医療スタッフへの暴言・怒鳴り・脅迫的発言
+- 正当な理由のない診療・処置の強要
+- スタッフへのセクシャルハラスメント
+- 業務妨害にあたる長時間の居座り・電話
+
+## 当院の対応方針
+
+上記の行為が確認された場合、以下の対応をとることがあります。
+
+1. 注意・警告を書面で通知します
+2. 改善が見られない場合、診療をお断りする場合があります
+3. 刑事事件に該当する場合は警察に通報します
+
+## 正当なご意見・ご要望について
+
+患者様・ご家族からの正当なご意見・改善要望は真摯に受け止めます。お気づきの点は受付窓口または相談員までお申し付けください。
+
+---
+${new Date().getFullYear()}年${new Date().getMonth() + 1}月 ${new Date().getDate()}日作成
+[医療機関名] 院長・管理者
+
+※このテンプレートをコピーして、医療機関名・日付を記入してご使用ください。`;
 }
 
 function parseResult(text: string) {
