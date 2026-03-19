@@ -44,6 +44,20 @@ function renderMarkdown(text: string): string {
   return result.join("\n");
 }
 
+const SECTION_TYPES = [
+  { value: "外来", label: "🏥 外来" },
+  { value: "救急", label: "🚑 救急" },
+  { value: "入院病棟", label: "🛏️ 入院病棟" },
+  { value: "薬局", label: "💊 薬局" },
+  { value: "検査", label: "🔬 検査" },
+];
+
+const CLAIM_RECORD_TEMPLATE = `【発生日時】〇〇年〇〇月〇〇日
+【患者・家族の訴え内容】
+【担当スタッフ】
+【経緯と対応状況】
+【患者の要求内容】`;
+
 const CASE_TYPES = [
   "暴言・威圧",
   "過剰な要求・長時間拘束",
@@ -120,6 +134,7 @@ function CopyBtn({ text, label = "📋 コピーする", className = "" }: { tex
 
 export default function IryouTool() {
   const [caseType, setCaseType] = useState(CASE_TYPES[0]);
+  const [section, setSection] = useState("");
   const [department, setDepartment] = useState("");
   const [requesterType, setRequesterType] = useState(REQUESTER_TYPES[0]);
   const [severity, setSeverity] = useState("中度");
@@ -153,7 +168,7 @@ export default function IryouTool() {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ caseType, department, requesterType, severity, situation }),
+        body: JSON.stringify({ caseType, section, department, requesterType, severity, situation }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -268,6 +283,25 @@ export default function IryouTool() {
           </div>
 
           <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">対応科・部署 <span className="text-gray-400 font-normal text-xs">（任意）</span></label>
+            <div className="flex flex-wrap gap-2">
+              {SECTION_TYPES.map((s) => (
+                <button
+                  key={s.value}
+                  onClick={() => setSection(section === s.value ? "" : s.value)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                    section === s.value
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-blue-400"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">診療科 <span className="text-gray-400 font-normal text-xs">（任意・選ぶと精度が上がります）</span></label>
             <div className="flex flex-wrap gap-2">
               {DEPARTMENT_TYPES.slice(1).map((d) => (
@@ -314,7 +348,16 @@ export default function IryouTool() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">状況の詳細</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-semibold text-gray-700">状況の詳細</label>
+              <button
+                type="button"
+                onClick={() => setSituation(CLAIM_RECORD_TEMPLATE)}
+                className="text-xs px-3 py-1.5 rounded-full border border-emerald-400 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors font-medium"
+              >
+                📋 クレーム記録テンプレートを挿入
+              </button>
+            </div>
             {/* シナリオプリセット */}
             <div className="mb-2 flex flex-wrap gap-1.5">
               {[
