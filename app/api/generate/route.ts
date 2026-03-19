@@ -88,12 +88,14 @@ export async function POST(req: NextRequest) {
   try { body = await req.json(); }
   catch { return NextResponse.json({ error: "リクエストの形式が正しくありません" }, { status: 400 }); }
 
-  const { caseType, requesterType, severity, situation } = body as Record<string, string>;
+  const VALID_DEPARTMENTS = ["内科", "外科", "精神科・心療内科", "小児科", "産婦人科", "救急・救命", "整形外科", "眼科・耳鼻科", "歯科・口腔外科", "訪問診療・在宅医療", "介護施設・老人ホーム", ""];
+  const { caseType, department, requesterType, severity, situation } = body as Record<string, string>;
   if (!situation || !situation.trim()) return NextResponse.json({ error: "状況を入力してください" }, { status: 400 });
   if (situation.length > 1500) return NextResponse.json({ error: "状況は1500文字以内で入力してください" }, { status: 400 });
   if (caseType && !VALID_CASE_TYPES.includes(caseType)) return NextResponse.json({ error: "不正なカスハラ種別です" }, { status: 400 });
   if (requesterType && !VALID_REQUESTER.includes(requesterType)) return NextResponse.json({ error: "不正な要求者種別です" }, { status: 400 });
   if (severity && !VALID_SEVERITY.includes(severity)) return NextResponse.json({ error: "不正な深刻度です" }, { status: 400 });
+  if (department && !VALID_DEPARTMENTS.includes(department)) return NextResponse.json({ error: "不正な診療科です" }, { status: 400 });
 
   const safSituation = situation.replace(/[<>]/g, "");
 
@@ -117,6 +119,7 @@ export async function POST(req: NextRequest) {
 - 患者の受診権と医療機関の診療拒否権（応招義務の限界）を正確に説明
 - カスハラと正当な医療上の苦情・要望を明確に区別
 
+【診療科】${department || "未指定"}
 【カスハラ種別】${caseType || "不明"}
 【要求者】${requesterType || "不明"}
 【深刻度】${severity || "中度"}

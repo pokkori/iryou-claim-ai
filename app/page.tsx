@@ -106,12 +106,12 @@ export default function IryouLP() {
           <div className="inline-block bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full mb-6 border border-blue-200">
             クリニック・診療所・病院・医療法人 向け
           </div>
-          {/* リアルタイム風統計バッジ */}
+          {/* カスハラ義務化バッジ */}
           <div className="mb-5 inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-4 py-2 text-sm shadow-sm">
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-400">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             </span>
-            <span className="text-blue-700 font-semibold">今週 <strong>892件</strong> の医療カスハラ対応文書が作成されました</span>
+            <span className="text-blue-700 font-semibold">2026年10月 カスハラ対策義務化 — <strong>医療機関も対象</strong></span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             患者・家族からのカスハラ。<br />

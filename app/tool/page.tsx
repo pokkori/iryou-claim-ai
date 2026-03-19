@@ -53,6 +53,21 @@ const CASE_TYPES = [
   "行政・マスコミへの脅迫",
 ];
 
+const DEPARTMENT_TYPES = [
+  { value: "", label: "診療科を選択（任意）" },
+  { value: "内科", label: "🩺 内科" },
+  { value: "外科", label: "🔪 外科" },
+  { value: "精神科・心療内科", label: "🧠 精神科・心療内科" },
+  { value: "小児科", label: "👶 小児科" },
+  { value: "産婦人科", label: "🤰 産婦人科" },
+  { value: "救急・救命", label: "🚑 救急・救命" },
+  { value: "整形外科", label: "🦴 整形外科" },
+  { value: "眼科・耳鼻科", label: "👁️ 眼科・耳鼻科" },
+  { value: "歯科・口腔外科", label: "🦷 歯科・口腔外科" },
+  { value: "訪問診療・在宅医療", label: "🏠 訪問診療・在宅医療" },
+  { value: "介護施設・老人ホーム", label: "🏥 介護施設・老人ホーム" },
+];
+
 const REQUESTER_TYPES = ["患者本人", "家族・親族", "その他"];
 const SEVERITY_LEVELS = [
   { value: "軽度", label: "🟢 軽度（一般的な苦情・要望）", score: 2, color: "bg-green-500" },
@@ -105,6 +120,7 @@ function CopyBtn({ text, label = "📋 コピーする", className = "" }: { tex
 
 export default function IryouTool() {
   const [caseType, setCaseType] = useState(CASE_TYPES[0]);
+  const [department, setDepartment] = useState("");
   const [requesterType, setRequesterType] = useState(REQUESTER_TYPES[0]);
   const [severity, setSeverity] = useState("中度");
   const [situation, setSituation] = useState("");
@@ -137,7 +153,7 @@ export default function IryouTool() {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ caseType, requesterType, severity, situation }),
+        body: JSON.stringify({ caseType, department, requesterType, severity, situation }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -246,6 +262,25 @@ export default function IryouTool() {
                   }`}
                 >
                   {t}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">診療科 <span className="text-gray-400 font-normal text-xs">（任意・選ぶと精度が上がります）</span></label>
+            <div className="flex flex-wrap gap-2">
+              {DEPARTMENT_TYPES.slice(1).map((d) => (
+                <button
+                  key={d.value}
+                  onClick={() => setDepartment(department === d.value ? "" : d.value)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                    department === d.value
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-blue-400"
+                  }`}
+                >
+                  {d.label}
                 </button>
               ))}
             </div>
