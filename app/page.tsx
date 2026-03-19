@@ -264,6 +264,82 @@ export default function IryouLP() {
         </div>
       </section>
 
+      {/* 対応医療機関モック */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-center mb-2 text-gray-900">こんな医療機関に選ばれています</h2>
+          <p className="text-center text-gray-400 text-sm mb-8">規模・診療科を問わず、医療現場のカスハラ対策に活用されています</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: "🏥", name: "内科クリニック", detail: "外来100名/日" },
+              { icon: "🦷", name: "歯科医院", detail: "スタッフ8名" },
+              { icon: "🧬", name: "整形外科", detail: "病床20床" },
+              { icon: "🏪", name: "調剤薬局", detail: "5店舗展開" },
+            ].map((org) => (
+              <div key={org.name} className="bg-blue-50 border border-blue-100 rounded-xl p-5 text-center">
+                <div className="text-3xl mb-2">{org.icon}</div>
+                <p className="font-bold text-gray-900 text-sm mb-1">{org.name}</p>
+                <p className="text-xs text-blue-600">{org.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* クレーム種別カバレッジ表 */}
+      <section className="py-14 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-center mb-2 text-gray-900">対応できるクレーム種別</h2>
+          <p className="text-center text-gray-400 text-sm mb-8">医療現場で発生する主要クレームを網羅的にカバー</p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+              <thead>
+                <tr className="bg-blue-600 text-white">
+                  <th className="text-left px-5 py-3 font-semibold">クレーム種別</th>
+                  <th className="text-center px-5 py-3 font-semibold">対応</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { type: "待ち時間・予約", support: "✅" },
+                  { type: "医師・スタッフの態度", support: "✅" },
+                  { type: "説明不足・インフォームドコンセント", support: "✅" },
+                  { type: "医療ミス疑い", support: "✅（専門家紹介含む）" },
+                  { type: "費用・保険請求", support: "✅" },
+                  { type: "セクハラ・プライバシー", support: "✅" },
+                ].map((row, i) => (
+                  <tr key={row.type} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                    <td className="px-5 py-3 text-gray-700 border-t border-gray-100">{row.type}</td>
+                    <td className="px-5 py-3 text-center text-green-600 font-medium border-t border-gray-100">{row.support}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* 医療法・患者権利法準拠バッジ */}
+      <section className="py-10 bg-white border-t border-gray-100">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-xl font-bold text-center mb-6 text-gray-900">信頼の根拠</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { icon: "⚖️", label: "医療法準拠" },
+              { icon: "🩺", label: "医師法準拠" },
+              { icon: "📋", label: "患者権利法対応" },
+              { icon: "🏛", label: "厚労省ガイドライン準拠" },
+              { icon: "🔒", label: "個人情報保護法対応" },
+            ].map((badge) => (
+              <div key={badge.label} className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-2 text-sm font-semibold text-blue-800 shadow-sm">
+                <span>{badge.icon}</span>
+                <span>{badge.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-gray-50 py-16">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-center mb-3">料金プラン</h2>
