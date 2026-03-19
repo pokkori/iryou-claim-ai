@@ -319,21 +319,79 @@ export default function IryouLP() {
         </div>
       </section>
 
-      {/* 医療法・患者権利法準拠バッジ */}
+      {/* 医療訴訟費用比較セクション */}
+      <section className="py-14 bg-red-50 border-t border-red-100">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <div className="inline-block bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-red-200">
+              ⚠️ 放置すると高額な費用リスク
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">弁護士費用 vs 医療クレームAI</h2>
+            <p className="text-gray-500 text-sm">医療過誤クレーム・訴訟対応に実際にかかるコストと比較してください</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="bg-white border-2 border-red-200 rounded-2xl p-6">
+              <p className="text-sm font-bold text-red-600 mb-4 text-center">❌ 弁護士対応の場合</p>
+              <div className="space-y-3">
+                {[
+                  { label: "法律相談料（60分）", cost: "¥1万〜" },
+                  { label: "調査費用（カルテ精査等）", cost: "¥22万〜44万" },
+                  { label: "着手金", cost: "¥22万〜55万" },
+                  { label: "報酬金（成功報酬）", cost: "経済的利益の16〜22%" },
+                  { label: "訴訟全体の総費用", cost: "¥50万〜500万+" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center justify-between text-sm border-b border-red-50 pb-2 last:border-0">
+                    <span className="text-gray-600">{item.label}</span>
+                    <span className="font-bold text-red-600">{item.cost}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-gray-400 mt-3 text-center">※ 医療過誤専門事務所の標準的相場</p>
+            </div>
+            <div className="bg-white border-2 border-blue-500 rounded-2xl p-6 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">初動対応を自動化</div>
+              <p className="text-sm font-bold text-blue-600 mb-4 text-center">✅ 医療クレームAIの場合</p>
+              <div className="space-y-3">
+                {[
+                  { label: "初動スクリプト生成", cost: "無料（3回）" },
+                  { label: "インシデントレポート", cost: "無料（3回）" },
+                  { label: "書面通知文生成", cost: "無料（3回）" },
+                  { label: "月100件生成（無制限）", cost: "¥9,800/月" },
+                  { label: "弁護士相談が必要なケースを判定", cost: "自動判定" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center justify-between text-sm border-b border-blue-50 pb-2 last:border-0">
+                    <span className="text-gray-600">{item.label}</span>
+                    <span className="font-bold text-blue-600">{item.cost}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 bg-blue-50 rounded-xl p-3 text-center">
+                <p className="text-xs text-blue-800 font-bold">初動対応をAIが担うことで<br />弁護士費用を最小化できます</p>
+              </div>
+            </div>
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-4">※ AIは法的助言を提供するものではありません。訴訟・脅迫・傷害リスクのあるケースは弁護士への相談を推奨します。</p>
+        </div>
+      </section>
+
+      {/* 医療法・患者権利法準拠バッジ（条文明示強化版） */}
       <section className="py-10 bg-white border-t border-gray-100">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-xl font-bold text-center mb-6 text-gray-900">信頼の根拠</h2>
-          <div className="flex flex-wrap justify-center gap-3">
+          <h2 className="text-xl font-bold text-center mb-2 text-gray-900">信頼の法的根拠</h2>
+          <p className="text-center text-gray-400 text-sm mb-6">対応文生成の根拠となる法令・ガイドラインに基づいています</p>
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
             {[
-              { icon: "⚖️", label: "医療法準拠" },
-              { icon: "🩺", label: "医師法準拠" },
-              { icon: "📋", label: "患者権利法対応" },
-              { icon: "🏛", label: "厚労省ガイドライン準拠" },
-              { icon: "🔒", label: "個人情報保護法対応" },
+              { icon: "⚖️", label: "医療法第1条の4", sub: "患者の尊重義務" },
+              { icon: "🩺", label: "医師法第19条", sub: "応招義務と診療拒否権" },
+              { icon: "📋", label: "患者の権利法（対応）", sub: "正当なクレームとの区別" },
+              { icon: "🏛", label: "厚労省カスハラGL", sub: "2026年10月義務化対応" },
+              { icon: "🔒", label: "個人情報保護法", sub: "記録・証拠保全の適法処理" },
+              { icon: "🚨", label: "刑法第208条", sub: "暴行・脅迫への法的対応" },
             ].map((badge) => (
-              <div key={badge.label} className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-2 text-sm font-semibold text-blue-800 shadow-sm">
-                <span>{badge.icon}</span>
-                <span>{badge.label}</span>
+              <div key={badge.label} className="inline-flex flex-col items-center gap-0.5 bg-blue-50 border border-blue-200 rounded-xl px-4 py-2.5 text-center shadow-sm min-w-[130px]">
+                <span className="text-lg">{badge.icon}</span>
+                <span className="text-xs font-bold text-blue-800">{badge.label}</span>
+                <span className="text-xs text-blue-500">{badge.sub}</span>
               </div>
             ))}
           </div>

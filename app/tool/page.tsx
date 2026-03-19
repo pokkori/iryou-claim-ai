@@ -132,6 +132,69 @@ function CopyBtn({ text, label = "📋 コピーする", className = "" }: { tex
   );
 }
 
+const SCENARIO_TABS = ["🏥 外来", "🛏️ 入院", "🚑 急患・救急"] as const;
+type ScenarioTab = typeof SCENARIO_TABS[number];
+
+const SCENARIO_PRESETS: Record<ScenarioTab, { label: string; text: string }[]> = {
+  "🏥 外来": [
+    { label: "😡 暴言・怒鳴り", text: "外来受付で患者の家族が「なぜこんなに待たせるんだ」「担当医を替えろ」と大声で怒鳴り続け、他の患者が怖がっている。" },
+    { label: "⏰ 長時間居座り", text: "診察終了後も「もっと説明しろ」「納得できない」と2時間以上外来診察室に居座り、次の患者の診察が滞っている。" },
+    { label: "💊 処方変更要求", text: "患者がインターネット情報をもとに、担当医の処方に強く異議を唱え「〇〇を処方しろ」「この薬は効かない」と外来で繰り返し要求してくる。" },
+    { label: "📱 無断録音・録画", text: "外来診察中に患者・家族が許可なく録音・録画し、「Xで公開する」と脅している。スタッフのプライバシーへの影響が心配。" },
+    { label: "💴 会計拒否", text: "会計窓口で「この金額はおかしい」と支払いを拒否し、受付スタッフを怒鳴りつけている。保険請求の説明をしても聞かない。" },
+  ],
+  "🛏️ 入院": [
+    { label: "🏥 転院強要", text: "入院患者の家族が「他の病院に転院させる」「院長を出せ」と繰り返し要求し、主治医への罵倒も続いている。" },
+    { label: "🌙 深夜ナース呼び出し", text: "入院患者が深夜に些細なことで何度もナースコールを押し、「すぐ来い」「仕事しろ」と看護師に怒鳴っている。業務に支障が出ている。" },
+    { label: "👨‍👩‍👧 家族の面会トラブル", text: "面会時間外に患者家族が病棟に入り込み、「家族なのになぜ会えないんだ」と看護師に詰め寄り、他の入院患者の迷惑になっている。" },
+    { label: "📋 カルテ開示要求", text: "患者家族がカルテ・検査記録の即時全開示を要求し、「隠蔽している」「医療ミスの証拠がある」と主張して病棟で声を荒げている。" },
+    { label: "🍱 食事・設備クレーム", text: "入院患者が食事内容・病室設備について過剰な変更要求を繰り返し、担当看護師に「サービスが悪い」と毎日クレームを入れている。" },
+  ],
+  "🚑 急患・救急": [
+    { label: "🔁 繰り返し救急利用", text: "同じ患者が軽症にもかかわらず深夜救急を週3〜4回繰り返し利用し、「すぐ入院させろ」と要求している。真に緊急な患者の対応が遅れている。" },
+    { label: "💉 処置拒否・暴れる", text: "救急搬送された患者が酩酊状態で処置を拒否し、スタッフに怒鳴りながら暴れている。周囲の患者への影響もある。" },
+    { label: "👪 家族の同席強要", text: "救急処置中に家族が処置室への同席を強く要求し、「何をしているのか見せろ」と入室しようとしている。" },
+    { label: "⚠️ 応招義務を盾に", text: "診察内容に不満を持つ患者が「応招義務があるから断れないはずだ」と主張し、規定外の検査・処置を強要している。" },
+    { label: "🚓 警察連携検討", text: "救急来院した患者が「殺すぞ」「家に押しかける」と脅迫的発言をし、スタッフが身の危険を感じている。警察への連絡を検討している。" },
+  ],
+};
+
+function ScenarioPresets({ onSelect }: { onSelect: (text: string) => void }) {
+  const [activeTab, setActiveTab] = useState<ScenarioTab>("🏥 外来");
+  return (
+    <div className="border border-gray-200 rounded-xl overflow-hidden">
+      <div className="flex bg-gray-50 border-b border-gray-200">
+        {SCENARIO_TABS.map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => setActiveTab(tab)}
+            className={`flex-1 text-xs font-medium py-2 transition-colors ${
+              activeTab === tab
+                ? "bg-white text-blue-600 border-b-2 border-blue-600"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      <div className="p-2 flex flex-wrap gap-1.5 bg-white">
+        {SCENARIO_PRESETS[activeTab].map((p) => (
+          <button
+            key={p.label}
+            type="button"
+            onClick={() => onSelect(p.text)}
+            className="text-xs px-2.5 py-1.5 rounded-full border border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors font-medium"
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function IryouTool() {
   const [caseType, setCaseType] = useState(CASE_TYPES[0]);
   const [section, setSection] = useState("");
@@ -358,20 +421,9 @@ export default function IryouTool() {
                 📋 クレーム記録テンプレートを挿入
               </button>
             </div>
-            {/* シナリオプリセット */}
-            <div className="mb-2 flex flex-wrap gap-1.5">
-              {[
-                { label: "😡 暴言・怒鳴り", text: "患者の家族が診察室に押しかけ、「なぜ今日中に退院させないのか」「医療ミスだ、訴えてやる」と大声で怒鳴り続けている。受付スタッフが対応に困っている。" },
-                { label: "⏰ 長時間居座り", text: "診察終了後も「もっと説明しろ」「納得できない」と2時間以上居座り、他の患者の診察が滞っている。" },
-                { label: "💊 薬の変更要求", text: "患者がインターネット情報をもとに、担当医の処方に強く異議を唱え「〇〇を処方しろ」「この薬は効かない」と繰り返し要求してくる。" },
-                { label: "📱 録音・録画", text: "患者・家族が許可なく診察室内を録音・録画し、「Xで公開する」と脅している。プライバシーとスタッフへの影響が心配。" },
-                { label: "🏥 転院強要", text: "入院患者の家族が「他の病院に転院させる」「院長を出せ」と繰り返し要求し、主治医への罵倒も続いている。" },
-              ].map((p) => (
-                <button key={p.label} type="button" onClick={() => setSituation(p.text)}
-                  className="text-xs px-2.5 py-1.5 rounded-full border border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors font-medium">
-                  {p.label}
-                </button>
-              ))}
+            {/* 診療科別シナリオプリセット（外来/入院/急患タブ） */}
+            <div className="mb-3">
+              <ScenarioPresets onSelect={setSituation} />
             </div>
             <textarea
               value={situation}
