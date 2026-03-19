@@ -3,6 +3,43 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import KomojuButton from "@/components/KomojuButton";
 
+// 応招義務チェッカー
+const OHSHO_QUESTIONS = [
+  { id: 1, text: "患者から暴力・脅迫行為があった、または強く示唆された" },
+  { id: 2, text: "患者が診療費の支払い拒否を繰り返している" },
+  { id: 3, text: "患者が自院の診療能力を超えた治療を執拗に要求している" },
+  { id: 4, text: "患者または家族から診療妨害（長時間占拠・怒鳴り等）が継続している" },
+  { id: 5, text: "他の患者の安全・診療秩序を著しく乱す行為がある" },
+];
+
+// 診療科別対応事例
+const DEPT_CASES = [
+  {
+    dept: "内科",
+    icon: "🩺",
+    cases: [
+      { title: "慢性疾患患者の薬の過剰処方要求", detail: "「もっと薬を出せ」「前の先生はくれた」という過剰処方要求。処方方針を明文化した書面を作成し、院長名義で通知することで繰り返し要求を抑制できます。" },
+      { title: "検査結果への根拠なき医療ミス主張", detail: "「数値が悪くなったのは誤診だ」という主張には、検査値の推移記録と治療経緯のインシデントレポートを即座に作成。厚労省GL準拠の対応文で毅然と対応します。" },
+    ],
+  },
+  {
+    dept: "外科",
+    icon: "🔪",
+    cases: [
+      { title: "術後クレームの対応", detail: "「手術が失敗だ」「術後の状態が悪い」という主張には、術前説明書・同意書の写しと、AI生成のインシデントレポートで初動対応。弁護士相談が必要な場合はAIが自動判定します。" },
+      { title: "手術室・ICUへの無断立入要求", detail: "「家族なのに会わせろ」という無断立入要求は、院内規程と感染対策基準を根拠に毅然と断る書面・口頭スクリプトをAIが即生成します。" },
+    ],
+  },
+  {
+    dept: "精神科",
+    icon: "🧠",
+    cases: [
+      { title: "任意入院患者の退院要求と家族との対立", detail: "患者本人の退院要求と家族の強制入院要求が対立するケース。精神保健福祉法に基づいた手続きと毅然とした説明文書をAIが生成し、法的根拠を持った対応をサポートします。" },
+      { title: "スタッフへの妄想的言動・訴訟脅迫", detail: "妄想的内容のクレームや「訴えてやる」という脅迫には、記録の客観性を保ちながら毅然と対応する書面が重要。AIがインシデントレポートと回答文書を同時生成します。" },
+    ],
+  },
+];
+
 const PAYJP_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY ?? "";
 
 const MEDICAL_CASES = [
@@ -54,6 +91,9 @@ export default function IryouLP() {
   const [showPayjp, setShowPayjp] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<"standard" | "business">("standard");
   const [daysLeft, setDaysLeft] = useState<number | null>(null);
+  const [ohshoChecked, setOhshoChecked] = useState<Record<number, boolean>>({});
+  const [ohshoResult, setOhshoResult] = useState<string | null>(null);
+  const [openDept, setOpenDept] = useState<string | null>(null);
 
   useEffect(() => {
     const target = new Date("2026-10-01");
@@ -65,6 +105,17 @@ export default function IryouLP() {
     setSelectedPlan(plan);
     setShowPayjp(true);
   };
+
+  function checkOhsho() {
+    const checkedCount = Object.values(ohshoChecked).filter(Boolean).length;
+    if (checkedCount === 0) {
+      setOhshoResult("none");
+    } else if (checkedCount >= 3) {
+      setOhshoResult("can_refuse");
+    } else if (checkedCount >= 1) {
+      setOhshoResult("needs_caution");
+    }
+  }
 
   return (
     <main className="min-h-screen bg-white">
@@ -485,6 +536,120 @@ export default function IryouLP() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 応招義務チェッカーUI */}
+      <section className="py-14 bg-blue-50 border-t border-blue-100">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-6">
+            <div className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
+              ⚖️ 医師法第19条 — 応招義務チェッカー
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">今の状況、診察を断れますか？</h2>
+            <p className="text-gray-500 text-sm">医師法第19条の応招義務は絶対ではありません。5つの質問に答えて、正当な診療拒否が可能か判定します。</p>
+          </div>
+          <div className="bg-white border border-blue-200 rounded-2xl p-6 shadow-sm">
+            <div className="space-y-3 mb-6">
+              {OHSHO_QUESTIONS.map((q) => (
+                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    className="mt-1 w-4 h-4 accent-blue-600"
+                    checked={!!ohshoChecked[q.id]}
+                    onChange={(e) => setOhshoChecked(prev => ({ ...prev, [q.id]: e.target.checked }))}
+                  />
+                  <span className="text-sm text-gray-800">{q.text}</span>
+                </label>
+              ))}
+            </div>
+            <button
+              onClick={checkOhsho}
+              className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors mb-4"
+            >
+              診療拒否の可否を判定する →
+            </button>
+            {ohshoResult === "can_refuse" && (
+              <div className="bg-green-50 border border-green-300 rounded-xl p-4">
+                <p className="text-green-800 font-bold mb-1">✅ 診療を断れる可能性が高いです</p>
+                <p className="text-green-700 text-sm">3項目以上に該当する場合、厚労省通知（令和元年12月25日）に基づき、応招義務の例外として診療拒否が認められる可能性があります。<strong>必ず弁護士・医療法務担当者に確認のうえ、AIで書面を生成してください。</strong></p>
+              </div>
+            )}
+            {ohshoResult === "needs_caution" && (
+              <div className="bg-yellow-50 border border-yellow-300 rounded-xl p-4">
+                <p className="text-yellow-800 font-bold mb-1">⚠️ 慎重な対応が必要です</p>
+                <p className="text-yellow-700 text-sm">一部該当する項目があります。即座の診療拒否は法的リスクが残ります。AIで段階的な対応文（警告→書面通知）を生成し、記録を積み重ねることを推奨します。</p>
+              </div>
+            )}
+            {ohshoResult === "none" && (
+              <div className="bg-red-50 border border-red-300 rounded-xl p-4">
+                <p className="text-red-800 font-bold mb-1">❌ 現状では診療拒否は困難です</p>
+                <p className="text-red-700 text-sm">該当項目がない場合、応招義務により診療を続ける必要があります。ただし、問題行動を記録し段階的な対応を行うことで将来の正当な拒否につなげることができます。</p>
+              </div>
+            )}
+            <p className="text-xs text-gray-400 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は弁護士・医療法務の専門家にご相談ください。</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 診療科別対応事例 */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">診療科別 よくある対応事例</h2>
+            <p className="text-gray-500 text-sm">内科・外科・精神科それぞれの医療現場で実際に起きるカスハラ事例と、AIによる対応アプローチを紹介します</p>
+          </div>
+          <div className="space-y-4">
+            {DEPT_CASES.map((dept) => (
+              <div key={dept.dept} className="border border-gray-200 rounded-xl overflow-hidden">
+                <button
+                  className="w-full flex items-center justify-between px-6 py-4 bg-white hover:bg-blue-50 transition-colors text-left"
+                  onClick={() => setOpenDept(openDept === dept.dept ? null : dept.dept)}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{dept.icon}</span>
+                    <span className="font-bold text-gray-900">{dept.dept} — よくある事例</span>
+                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">{dept.cases.length}件</span>
+                  </div>
+                  <span className="text-gray-400 text-lg">{openDept === dept.dept ? "▲" : "▼"}</span>
+                </button>
+                {openDept === dept.dept && (
+                  <div className="border-t border-gray-100 divide-y divide-gray-100">
+                    {dept.cases.map((c, i) => (
+                      <div key={i} className="px-6 py-4 bg-gray-50">
+                        <p className="font-semibold text-blue-800 text-sm mb-2">📋 {c.title}</p>
+                        <p className="text-sm text-gray-700 leading-relaxed">{c.detail}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+              あなたのクレームに対応する文書をAIで生成する →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 弁護士無料相談CTA */}
+      <section className="py-10 bg-gradient-to-r from-indigo-600 to-blue-600 text-white">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <p className="text-indigo-200 text-xs font-bold tracking-widest uppercase mb-2">専門家へのエスカレーション</p>
+          <h2 className="text-xl font-bold mb-2">「これは弁護士に相談すべき？」と思ったら</h2>
+          <p className="text-indigo-100 text-sm mb-5">医療過誤訴訟・不当要求・傷害リスクがあるケースは、AIの対応文だけでなく弁護士への相談が必要です。弁護士ドットコムでは医療専門の弁護士に無料で相談できます。</p>
+          <a
+            href="https://www.bengo4.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-white text-indigo-700 font-bold px-8 py-3 rounded-xl hover:bg-indigo-50 transition-colors shadow-lg"
+          >
+            <span>⚖️</span>
+            <span>弁護士ドットコムで無料相談する →</span>
+          </a>
+          <p className="text-indigo-200 text-xs mt-3">※弁護士ドットコムの広告リンクです。AIが「弁護士相談推奨」と判定したケースは特に活用してください。</p>
         </div>
       </section>
 
