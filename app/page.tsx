@@ -730,6 +730,55 @@ export default function IryouLP() {
         </div>
       </section>
 
+      {/* 医療クレームAIだけができること — 差別化セクション */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <div className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3">医療特化の強み</div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">医療クレームAIが医師・看護師に選ばれる理由</h2>
+            <p className="text-sm text-gray-500">汎用クレーム対応ツールにはない、医療現場専用の3つの機能</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mb-8">
+            {[
+              {
+                icon: "🩺",
+                title: "医師法・医療法を自動引用",
+                desc: "「医師法第19条（応招義務）」「刑法第208条（暴行罪）」「厚労省カスハラGL」を対応文に自動付加。法的根拠のある毅然とした対応が即できます。",
+                badge: "医師法準拠",
+              },
+              {
+                icon: "⚖️",
+                title: "応招義務チェッカー搭載",
+                desc: "「診察を断れるか？」を5問で即判定。一般企業向けツールには存在しない、医師法第19条の解釈に基づいた判定機能で、法的リスクを取らずに毅然と対応できます。",
+                badge: "医療機関専用",
+              },
+              {
+                icon: "📋",
+                title: "診療科別対応事例が充実",
+                desc: "内科・外科・精神科それぞれの現場で実際に起きるカスハラ事例（過剰処方要求・術後クレーム・任意入院問題）に特化した対応文を即生成。",
+                badge: "12診療科対応",
+              },
+            ].map(item => (
+              <div key={item.title} className="bg-blue-50 rounded-2xl p-5 border border-blue-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl">{item.icon}</span>
+                  <span className="text-xs bg-blue-700 text-white font-bold px-2 py-0.5 rounded-full">{item.badge}</span>
+                </div>
+                <h3 className="font-bold text-blue-900 mb-2 text-sm">{item.title}</h3>
+                <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="bg-blue-700 text-white rounded-2xl p-5 text-center max-w-2xl mx-auto">
+            <p className="font-bold mb-1">弁護士相談（¥1万〜）より速く、今すぐ対応文が生成できます</p>
+            <p className="text-blue-100 text-sm mb-4">クリニックプラン¥9,800/月 — 院長一人で抱えていた医療カスハラ対応をAIがサポート</p>
+            <Link href="/tool" className="inline-block bg-white text-blue-700 font-bold px-8 py-3 rounded-xl hover:bg-blue-50 text-sm">
+              無料で3回試してみる →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 医療カスハラガイドリンク（SEO内部リンク） */}
       <section className="py-10 px-4 bg-blue-50 border-t border-blue-100">
         <div className="max-w-3xl mx-auto text-center">
