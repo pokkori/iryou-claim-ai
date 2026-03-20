@@ -3,6 +3,15 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import KomojuButton from "@/components/KomojuButton";
 
+// カスハラ判定チェッカー
+const KASUHARA_CHECKER_QUESTIONS = [
+  { id: 1, text: "診察・対応中に大声で怒鳴ったり、威圧的な言動があった" },
+  { id: 2, text: "「訴える」「弁護士に頼む」「SNSで晒す」など脅迫的な発言があった" },
+  { id: 3, text: "診療基準・院内規程を超えた過剰な要求（特別扱い・規定外サービス等）を繰り返している" },
+  { id: 4, text: "長時間の居座り・診察室の占拠・スタッフへの業務妨害が発生している" },
+  { id: 5, text: "根拠なく医療ミスを主張し、謝罪や賠償を繰り返し要求している" },
+];
+
 // 応招義務チェッカー
 const OHSHO_QUESTIONS = [
   { id: 1, text: "患者から暴力・脅迫行為があった、または強く示唆された" },
@@ -94,6 +103,8 @@ export default function IryouLP() {
   const [ohshoChecked, setOhshoChecked] = useState<Record<number, boolean>>({});
   const [ohshoResult, setOhshoResult] = useState<string | null>(null);
   const [openDept, setOpenDept] = useState<string | null>(null);
+  const [kasuharaChecked, setKasuharaChecked] = useState<Record<number, boolean>>({});
+  const [kasuharaResult, setKasuharaResult] = useState<string | null>(null);
 
   useEffect(() => {
     const target = new Date("2026-10-01");
@@ -105,6 +116,13 @@ export default function IryouLP() {
     setSelectedPlan(plan);
     setShowPayjp(true);
   };
+
+  function checkKasuhara() {
+    const count = Object.values(kasuharaChecked).filter(Boolean).length;
+    if (count === 0) setKasuharaResult("none");
+    else if (count >= 3) setKasuharaResult("high");
+    else if (count >= 1) setKasuharaResult("medium");
+  }
 
   function checkOhsho() {
     const checkedCount = Object.values(ohshoChecked).filter(Boolean).length;
@@ -539,6 +557,65 @@ export default function IryouLP() {
         </div>
       </section>
 
+      {/* カスハラ判定チェッカー */}
+      <section className="py-14 bg-red-50 border-t border-red-100">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-6">
+            <div className="inline-block bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-red-200">
+              🔍 カスハラ度チェッカー — 5問・30秒
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">これってカスハラ？今すぐ判定</h2>
+            <p className="text-gray-500 text-sm">入力不要・選択式。5つの質問に答えるだけでカスハラ度スコアを表示します。</p>
+          </div>
+          <div className="bg-white border border-red-200 rounded-2xl p-6 shadow-sm">
+            <div className="space-y-3 mb-6">
+              {KASUHARA_CHECKER_QUESTIONS.map((q) => (
+                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-red-50 cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    className="mt-1 w-4 h-4 accent-red-600"
+                    checked={!!kasuharaChecked[q.id]}
+                    onChange={(e) => setKasuharaChecked(prev => ({ ...prev, [q.id]: e.target.checked }))}
+                  />
+                  <span className="text-sm text-gray-800">{q.text}</span>
+                </label>
+              ))}
+            </div>
+            <button
+              onClick={checkKasuhara}
+              className="w-full bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition-colors mb-4"
+            >
+              カスハラ度を判定する →
+            </button>
+            {kasuharaResult === "high" && (
+              <div className="bg-red-50 border-2 border-red-400 rounded-xl p-4">
+                <p className="text-red-800 font-bold mb-1">🚨 カスハラ度: 高（3項目以上該当）</p>
+                <p className="text-red-700 text-sm mb-3">複数の問題行動が確認されています。厚労省ガイドラインに基づき、書面による警告・インシデントレポートの作成を強く推奨します。悪化する前に記録を始めてください。</p>
+                <Link href="/tool" className="inline-block bg-red-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-red-700 transition-colors text-sm">
+                  今すぐ対応文・インシデントレポートを生成する →
+                </Link>
+              </div>
+            )}
+            {kasuharaResult === "medium" && (
+              <div className="bg-orange-50 border-2 border-orange-400 rounded-xl p-4">
+                <p className="text-orange-800 font-bold mb-1">⚠️ カスハラ度: 中（1〜2項目該当）</p>
+                <p className="text-orange-700 text-sm mb-3">カスハラの兆候があります。記録を残し始めることを推奨します。早い段階での対応文・書面警告が悪化を防ぎます。</p>
+                <Link href="/tool" className="inline-block bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-orange-700 transition-colors text-sm">
+                  対応文を生成して記録を始める →
+                </Link>
+              </div>
+            )}
+            {kasuharaResult === "none" && (
+              <div className="bg-green-50 border border-green-300 rounded-xl p-4">
+                <p className="text-green-800 font-bold mb-1">✅ 現状カスハラ該当なし</p>
+                <p className="text-green-700 text-sm">現時点では該当項目がありません。ただし正当な苦情・改善要望には丁寧な対応を継続してください。</p>
+              </div>
+            )}
+            <p className="text-xs text-gray-400 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は管理者・法務担当者にご確認ください。</p>
+          </div>
+        </div>
+      </section>
+
       {/* 応招義務チェッカーUI */}
       <section className="py-14 bg-blue-50 border-t border-blue-100">
         <div className="max-w-3xl mx-auto px-6">
@@ -657,15 +734,29 @@ export default function IryouLP() {
       <section className="py-10 px-4 bg-blue-50 border-t border-blue-100">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-bold text-blue-700 tracking-widest uppercase mb-2">医療カスハラ対策情報</p>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">医療現場カスハラ対策完全ガイド</h2>
-          <p className="text-gray-500 text-sm mb-4">応招義務の正しい理解・医療過誤クレーム対応・2026年義務化まで医師法・医療法に基づき解説</p>
-          <Link
-            href="/blog/iryou-kasuhara"
-            className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm"
-          >
-            医療カスハラ対策完全ガイドを読む →
-          </Link>
-          <p className="text-xs text-gray-400 mt-2">応招義務・断れるケース・対応文書の作り方まで全解説</p>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">医療カスハラ対策コンテンツ</h2>
+          <div className="grid sm:grid-cols-2 gap-4 mb-2">
+            <div className="bg-white border border-blue-200 rounded-xl p-5 text-center">
+              <p className="text-blue-600 font-bold text-sm mb-2">📖 医療カスハラ対策完全ガイド</p>
+              <p className="text-gray-500 text-xs mb-3">応招義務の正しい理解・医療過誤クレーム対応・2026年義務化まで解説</p>
+              <Link
+                href="/blog/iryou-kasuhara"
+                className="inline-block bg-blue-600 text-white font-bold px-5 py-2 rounded-xl hover:bg-blue-700 transition-colors text-sm"
+              >
+                ガイドを読む →
+              </Link>
+            </div>
+            <div className="bg-white border border-red-200 rounded-xl p-5 text-center">
+              <p className="text-red-600 font-bold text-sm mb-2">📋 医療カスハラ事例集5選</p>
+              <p className="text-gray-500 text-xs mb-3">実際に発生したカスハラ事例と法的根拠に基づく対応方法を解説</p>
+              <Link
+                href="/blog/cases"
+                className="inline-block bg-red-600 text-white font-bold px-5 py-2 rounded-xl hover:bg-red-700 transition-colors text-sm"
+              >
+                事例集を読む →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
