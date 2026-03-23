@@ -620,13 +620,14 @@ export default function IryouTool() {
                   <p className="text-sm font-bold text-blue-800 mb-3">同じ悩みを持つ医療スタッフへ届けましょう</p>
                   <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      `「カスハラ深刻度${currentSeverity.score}/10... 対応文書が即完成した😮 医療現場の理不尽に悩んでいる方へ → https://iryou-claim-ai.vercel.app #医療カスハラ対策 #医療現場 #カスハラ`
+                      `医療クレームAIで患者クレームへの対応文書を作成しました！ #医療クレームAI #医療 https://iryou-claim-ai.vercel.app`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-black text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-gray-800 transition-colors shadow-lg hover:scale-105 transition-transform"
+                    aria-label="医療クレームAIの対応結果をXにシェアする"
+                    className="text-xs px-3 py-1.5 rounded-lg bg-black hover:bg-gray-800 text-white font-medium transition-colors inline-flex items-center gap-2 min-h-[44px]"
                   >
-                    𝕏 でシェアして同僚に教える
+                    Xでシェア
                   </a>
                 </div>
                 {/* 次のアクション3選 */}
