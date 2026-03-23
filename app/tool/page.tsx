@@ -332,7 +332,7 @@ export default function IryouTool() {
   if (hitLimit) {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white rounded-2xl p-8 shadow-sm text-center border border-gray-200">
+        <div className="max-w-md w-full bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-sm text-center border border-white/20">
           <div className="text-5xl mb-4">🔒</div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">無料体験（{FREE_LIMIT}回）終了</h2>
           <p className="text-gray-500 text-sm mb-6">
@@ -366,7 +366,7 @@ export default function IryouTool() {
 
         {showPayjp && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-            <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
               <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="プランダイアログを閉じる">✕</button>
               <h2 className="text-lg font-bold mb-4 text-center">プランに登録</h2>
               <KomojuButton planId="business" planLabel="医療機関プラン ¥9,800/月を始める" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
@@ -578,7 +578,7 @@ export default function IryouTool() {
         {(loading || tabs) && (
           <div ref={resultRef} className="space-y-4">
             {loading && !tabs && (
-              <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-white/20 p-10 text-center">
                 <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mx-auto mb-4" />
                 <p className="text-sm text-gray-500 font-medium">AIが対応文を作成中...</p>
                 <p className="text-xs text-gray-400 mt-1">💬 口頭スクリプト → 📄 書面通知文 → 📋 インシデント記録</p>
@@ -616,7 +616,7 @@ export default function IryouTool() {
                 </div>
 
                 {/* シェアボタン */}
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
+                <div className="bg-blue-50/90 backdrop-blur-sm border border-blue-200/60 rounded-xl p-4 text-center">
                   <p className="text-sm font-bold text-blue-800 mb-3">同じ悩みを持つ医療スタッフへ届けましょう</p>
                   <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -631,7 +631,7 @@ export default function IryouTool() {
                   </a>
                 </div>
                 {/* 次のアクション3選 */}
-                <div className="bg-white border border-blue-200 rounded-xl p-4">
+                <div className="bg-white/90 backdrop-blur-sm border border-blue-200/60 rounded-xl p-4">
                   <p className="text-sm font-bold text-blue-800 mb-3">📋 次にやるべきこと3選</p>
                   <ol className="space-y-2">
                     {[
@@ -647,7 +647,7 @@ export default function IryouTool() {
                   </ol>
                 </div>
                 {/* 弁護士相談アフィリエイト（A8.net申請後URLを差し替え） */}
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <div className="bg-blue-50/90 backdrop-blur-sm border border-blue-200/60 rounded-xl p-4">
                   <p className="text-sm font-black text-blue-900 mb-1">⚖️ 深刻なクレームは弁護士へ</p>
                   <p className="text-xs text-blue-700 mb-3">脅迫・不退去・傷害リスクは弁護士対応が必須。医療機関向け顧問契約も確認できます。</p>
                   {/* TODO: Replace href with A8.net affiliate URL after approval */}
@@ -687,7 +687,7 @@ export default function IryouTool() {
 
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
             <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
             <h2 className="text-lg font-bold mb-4 text-center">プランに登録</h2>
             <KomojuButton planId="business" planLabel="医療機関プラン ¥9,800/月を始める" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
