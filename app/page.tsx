@@ -270,7 +270,7 @@ export default function IryouLP() {
             <h2 className="text-2xl font-bold text-gray-900 mb-2">あなたの医院は応招義務を正しく理解していますか？</h2>
             <p className="text-gray-500 text-sm">医師法第19条の応招義務は絶対ではありません。5つの質問に答えて、診療拒否が正当化される可能性を判定します。</p>
           </div>
-          <div className="bg-white border border-blue-200 rounded-2xl p-6 shadow-sm">
+          <div className="backdrop-blur-sm bg-white/95 border border-blue-200 rounded-2xl p-6 shadow-lg">
             <div className="space-y-3 mb-6">
               {OHSHO_QUESTIONS.map((q) => (
                 <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors">
@@ -430,7 +430,7 @@ export default function IryouLP() {
                 desc: "医療機関名義の公式文書として使える書面通知文を生成。警告・診療お断り・警察連携への言及を含む段階的対応文をそのまま活用できます。",
               },
             ].map((f) => (
-              <div key={f.title} className="bg-white rounded-xl p-6 border border-gray-200">
+              <div key={f.title} className="backdrop-blur-sm bg-white/90 rounded-xl p-6 border border-gray-200 shadow-sm">
                 <div className="mb-2">{f.icon}</div>
                 <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
                 <p className="text-sm text-gray-500">{f.desc}</p>
