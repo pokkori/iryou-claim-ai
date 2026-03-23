@@ -203,11 +203,13 @@ function ScenarioPresets({ onSelect }: { onSelect: (text: string) => void }) {
             key={tab}
             type="button"
             onClick={() => setActiveTab(tab)}
-            className={`flex-1 text-xs font-medium py-2 transition-colors ${
+            className={`flex-1 text-xs font-medium py-2 transition-colors min-h-[44px] ${
               activeTab === tab
                 ? "bg-white text-blue-600 border-b-2 border-blue-600"
                 : "text-gray-500 hover:text-gray-700"
             }`}
+            aria-label={`${tab}タブを表示する`}
+            aria-selected={activeTab === tab}
           >
             {tab}
           </button>
@@ -219,7 +221,8 @@ function ScenarioPresets({ onSelect }: { onSelect: (text: string) => void }) {
             key={p.label}
             type="button"
             onClick={() => onSelect(p.text)}
-            className="text-xs px-2.5 py-1.5 rounded-full border border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors font-medium"
+            className="text-xs px-2.5 py-1.5 rounded-full border border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors font-medium min-h-[44px]"
+            aria-label={`「${p.label}」のシナリオプリセットを入力する`}
           >
             {p.label}
           </button>
@@ -338,7 +341,7 @@ export default function IryouTool() {
         {showPayjp && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
             <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-              <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+              <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="プランダイアログを閉じる">✕</button>
               <h2 className="text-lg font-bold mb-4 text-center">プランに登録</h2>
               <KomojuButton planId="business" planLabel="医療機関プラン ¥9,800/月を始める" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
             </div>
@@ -367,11 +370,13 @@ export default function IryouTool() {
                 <button
                   key={t}
                   onClick={() => setCaseType(t)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors min-h-[44px] ${
                     caseType === t
                       ? "bg-blue-600 text-white border-blue-600"
                       : "bg-white text-gray-600 border-gray-200 hover:border-blue-400"
                   }`}
+                  aria-label={`カスハラ種別: ${t}を選択`}
+                  aria-pressed={caseType === t}
                 >
                   {t}
                 </button>
@@ -386,11 +391,13 @@ export default function IryouTool() {
                 <button
                   key={s.value}
                   onClick={() => setSection(section === s.value ? "" : s.value)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors min-h-[44px] ${
                     section === s.value
                       ? "bg-blue-600 text-white border-blue-600"
                       : "bg-white text-gray-600 border-gray-200 hover:border-blue-400"
                   }`}
+                  aria-label={`対応科・部署: ${s.label}を選択`}
+                  aria-pressed={section === s.value}
                 >
                   {s.label}
                 </button>
@@ -405,11 +412,13 @@ export default function IryouTool() {
                 <button
                   key={d.value}
                   onClick={() => setDepartment(department === d.value ? "" : d.value)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors min-h-[44px] ${
                     department === d.value
                       ? "bg-blue-600 text-white border-blue-600"
                       : "bg-white text-gray-600 border-gray-200 hover:border-blue-400"
                   }`}
+                  aria-label={`診療科: ${d.label}を選択`}
+                  aria-pressed={department === d.value}
                 >
                   {d.label}
                 </button>
@@ -424,6 +433,7 @@ export default function IryouTool() {
                 value={requesterType}
                 onChange={(e) => setRequesterType(e.target.value)}
                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                aria-label="クレーム要求者を選択"
               >
                 {REQUESTER_TYPES.map((r) => (
                   <option key={r} value={r}>{r}</option>
@@ -436,6 +446,7 @@ export default function IryouTool() {
                 value={severity}
                 onChange={(e) => setSeverity(e.target.value)}
                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                aria-label="カスハラの深刻度を選択"
               >
                 {SEVERITY_LEVELS.map((s) => (
                   <option key={s.value} value={s.value}>{s.label}</option>
@@ -450,7 +461,8 @@ export default function IryouTool() {
               <button
                 type="button"
                 onClick={() => setSituation(CLAIM_RECORD_TEMPLATE)}
-                className="text-xs px-3 py-1.5 rounded-full border border-emerald-400 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors font-medium"
+                className="text-xs px-3 py-1.5 rounded-full border border-emerald-400 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors font-medium min-h-[44px]"
+                aria-label="クレーム記録テンプレートを状況詳細欄に挿入する"
               >
                 📋 クレーム記録テンプレートを挿入
               </button>
@@ -466,6 +478,7 @@ export default function IryouTool() {
               rows={5}
               maxLength={1500}
               className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+              aria-label="カスハラ状況の詳細（必須）"
             />
             <p className="text-xs text-gray-400 text-right mt-1">{situation.length}/1500文字</p>
           </div>
@@ -479,7 +492,8 @@ export default function IryouTool() {
           <button
             onClick={handleGenerate}
             disabled={loading || !situation.trim()}
-            className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors min-h-[44px]"
+            aria-label="入力した状況をもとに対応文をAIで生成する"
           >
             {loading ? "生成中..." : "対応文を生成する"}
           </button>
@@ -530,11 +544,13 @@ export default function IryouTool() {
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        className={`flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                        className={`flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors min-h-[44px] ${
                           activeTab === tab
                             ? "border-blue-600 text-blue-600 bg-blue-50"
                             : "border-transparent text-gray-500 hover:text-gray-700"
                         }`}
+                        aria-label={`${tab}タブを表示する`}
+                        aria-selected={activeTab === tab}
                       >
                         {tab}
                       </button>

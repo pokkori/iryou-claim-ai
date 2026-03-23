@@ -127,11 +127,11 @@ export default function IryouLP() {
   function checkOhsho() {
     const checkedCount = Object.values(ohshoChecked).filter(Boolean).length;
     if (checkedCount === 0) {
-      setOhshoResult("none");
+      setOhshoResult("low");
     } else if (checkedCount >= 3) {
-      setOhshoResult("can_refuse");
-    } else if (checkedCount >= 1) {
-      setOhshoResult("needs_caution");
+      setOhshoResult("high");
+    } else {
+      setOhshoResult("medium");
     }
   }
 
@@ -217,6 +217,77 @@ export default function IryouLP() {
           >
             クリニックプランで始める ¥9,800/月
           </button>
+        </div>
+      </section>
+
+      {/* 応招義務チェッカー — ヒーローCTA直下 */}
+      <section className="py-14 bg-blue-50 border-t border-blue-100" style={{ scrollMarginTop: 0 }}>
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-6">
+            <div className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
+              ⚖️ 医師法第19条 — 応招義務チェッカー（5問・30秒）
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">あなたの医院は応招義務を正しく理解していますか？</h2>
+            <p className="text-gray-500 text-sm">医師法第19条の応招義務は絶対ではありません。5つの質問に答えて、診療拒否が正当化される可能性を判定します。</p>
+          </div>
+          <div className="bg-white border border-blue-200 rounded-2xl p-6 shadow-sm">
+            <div className="space-y-3 mb-6">
+              {OHSHO_QUESTIONS.map((q) => (
+                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    className="mt-1 w-4 h-4 accent-blue-600"
+                    checked={!!ohshoChecked[q.id]}
+                    onChange={(e) => setOhshoChecked(prev => ({ ...prev, [q.id]: e.target.checked }))}
+                  />
+                  <span className="text-sm text-gray-800">{q.text}</span>
+                </label>
+              ))}
+            </div>
+            <button
+              onClick={checkOhsho}
+              className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors mb-4"
+            >
+              応招義務拒否の可能性を判定する →
+            </button>
+            {ohshoResult === "high" && (
+              <div className="bg-green-50 border-2 border-green-400 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="inline-block bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">判定結果</span>
+                  <span className="text-green-800 font-bold text-lg">応招義務拒否が正当化される可能性: 高</span>
+                </div>
+                <p className="text-green-700 text-sm mb-4">3項目以上に該当しています。厚労省通知（令和元年12月25日）に基づき、応招義務の例外として診療拒否が認められる可能性が高い状況です。書面による正式な通知を準備することを強く推奨します。</p>
+                <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+                  この患者への具体的な対応文をAIで生成する →
+                </Link>
+              </div>
+            )}
+            {ohshoResult === "medium" && (
+              <div className="bg-yellow-50 border-2 border-yellow-400 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="inline-block bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-full">判定結果</span>
+                  <span className="text-yellow-800 font-bold text-lg">応招義務拒否が正当化される可能性: 中</span>
+                </div>
+                <p className="text-yellow-700 text-sm mb-4">一部該当する項目があります。即座の診療拒否は法的リスクが残りますが、段階的な対応（警告→書面通知→記録の蓄積）により、将来の正当な拒否につなげることができます。</p>
+                <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+                  この患者への具体的な対応文をAIで生成する →
+                </Link>
+              </div>
+            )}
+            {ohshoResult === "low" && (
+              <div className="bg-red-50 border-2 border-red-400 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="inline-block bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">判定結果</span>
+                  <span className="text-red-800 font-bold text-lg">応招義務拒否が正当化される可能性: 低</span>
+                </div>
+                <p className="text-red-700 text-sm mb-4">該当項目がない場合、応招義務により診療を続ける必要があります。ただし問題行動を記録し段階的な対応を行うことで、将来の正当な拒否につなげることができます。まずは記録から始めましょう。</p>
+                <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+                  この患者への具体的な対応文をAIで生成する →
+                </Link>
+              </div>
+            )}
+            <p className="text-xs text-gray-400 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は弁護士・医療法務の専門家にご相談ください。</p>
+          </div>
         </div>
       </section>
 
@@ -612,59 +683,6 @@ export default function IryouLP() {
               </div>
             )}
             <p className="text-xs text-gray-400 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は管理者・法務担当者にご確認ください。</p>
-          </div>
-        </div>
-      </section>
-
-      {/* 応招義務チェッカーUI */}
-      <section className="py-14 bg-blue-50 border-t border-blue-100">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-6">
-            <div className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
-              ⚖️ 医師法第19条 — 応招義務チェッカー
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">今の状況、診察を断れますか？</h2>
-            <p className="text-gray-500 text-sm">医師法第19条の応招義務は絶対ではありません。5つの質問に答えて、正当な診療拒否が可能か判定します。</p>
-          </div>
-          <div className="bg-white border border-blue-200 rounded-2xl p-6 shadow-sm">
-            <div className="space-y-3 mb-6">
-              {OHSHO_QUESTIONS.map((q) => (
-                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors">
-                  <input
-                    type="checkbox"
-                    className="mt-1 w-4 h-4 accent-blue-600"
-                    checked={!!ohshoChecked[q.id]}
-                    onChange={(e) => setOhshoChecked(prev => ({ ...prev, [q.id]: e.target.checked }))}
-                  />
-                  <span className="text-sm text-gray-800">{q.text}</span>
-                </label>
-              ))}
-            </div>
-            <button
-              onClick={checkOhsho}
-              className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors mb-4"
-            >
-              診療拒否の可否を判定する →
-            </button>
-            {ohshoResult === "can_refuse" && (
-              <div className="bg-green-50 border border-green-300 rounded-xl p-4">
-                <p className="text-green-800 font-bold mb-1">✅ 診療を断れる可能性が高いです</p>
-                <p className="text-green-700 text-sm">3項目以上に該当する場合、厚労省通知（令和元年12月25日）に基づき、応招義務の例外として診療拒否が認められる可能性があります。<strong>必ず弁護士・医療法務担当者に確認のうえ、AIで書面を生成してください。</strong></p>
-              </div>
-            )}
-            {ohshoResult === "needs_caution" && (
-              <div className="bg-yellow-50 border border-yellow-300 rounded-xl p-4">
-                <p className="text-yellow-800 font-bold mb-1">⚠️ 慎重な対応が必要です</p>
-                <p className="text-yellow-700 text-sm">一部該当する項目があります。即座の診療拒否は法的リスクが残ります。AIで段階的な対応文（警告→書面通知）を生成し、記録を積み重ねることを推奨します。</p>
-              </div>
-            )}
-            {ohshoResult === "none" && (
-              <div className="bg-red-50 border border-red-300 rounded-xl p-4">
-                <p className="text-red-800 font-bold mb-1">❌ 現状では診療拒否は困難です</p>
-                <p className="text-red-700 text-sm">該当項目がない場合、応招義務により診療を続ける必要があります。ただし、問題行動を記録し段階的な対応を行うことで将来の正当な拒否につなげることができます。</p>
-              </div>
-            )}
-            <p className="text-xs text-gray-400 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は弁護士・医療法務の専門家にご相談ください。</p>
           </div>
         </div>
       </section>
