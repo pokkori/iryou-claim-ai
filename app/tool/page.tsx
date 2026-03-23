@@ -3,6 +3,20 @@
 import { useState, useEffect, useRef } from "react";
 import KomojuButton from "@/components/KomojuButton";
 import { track } from '@vercel/analytics';
+import { updateStreak, loadStreak, getStreakMilestoneMessage, type StreakData } from "@/lib/streak";
+
+const HISTORY_KEY = "iryou_history";
+interface HistoryItem { text: string; date: string; }
+function loadHistory(): HistoryItem[] {
+  if (typeof window === "undefined") return [];
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]"); } catch { return []; }
+}
+function saveHistory(situation: string) {
+  if (typeof window === "undefined") return;
+  const items = loadHistory();
+  items.unshift({ text: situation.slice(0, 50), date: new Date().toLocaleDateString("ja-JP") });
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, 5)));
+}
 
 function renderMarkdown(text: string): string {
   const lines = text.split("\n");
@@ -247,12 +261,17 @@ export default function IryouTool() {
   const [hitLimit, setHitLimit] = useState(false);
   const [showPayjp, setShowPayjp] = useState(false);
   const [completionVisible, setCompletionVisible] = useState(false);
+  const [streak, setStreak] = useState<StreakData | null>(null);
+  const [streakMsg, setStreakMsg] = useState<string | null>(null);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const saved = parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10);
     setCount(saved);
     if (saved >= FREE_LIMIT) setHitLimit(true);
+    setStreak(loadStreak("iryou"));
+    setHistory(loadHistory());
   }, []);
 
   const currentSeverity = SEVERITY_LEVELS.find(s => s.value === severity) ?? SEVERITY_LEVELS[1];
@@ -291,6 +310,13 @@ export default function IryouTool() {
       setCount(newCount);
       localStorage.setItem(STORAGE_KEY, String(newCount));
       if (newCount >= FREE_LIMIT) { track('paywall_shown', { service: '医療クレームAI' }); setHitLimit(true); }
+      // ストリーク更新・履歴保存
+      const s = updateStreak("iryou");
+      setStreak(s);
+      const msg = getStreakMilestoneMessage(s.count);
+      if (msg) setStreakMsg(msg);
+      saveHistory(situation);
+      setHistory(loadHistory());
 
       // 達成感バナー表示
       setCompletionVisible(true);
@@ -360,7 +386,29 @@ export default function IryouTool() {
             状況を入力して「生成する」を押すだけ。
             無料残り<strong className="text-blue-600">{Math.max(0, FREE_LIMIT - count)}回</strong>
           </p>
+          {streak && streak.count > 0 && (
+            <div className="mt-3 inline-flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-full px-4 py-1.5 text-sm">
+              <span aria-label="ストリーク日数">{streak.count}日連続利用中</span>
+              {streak.shieldCount > 0 && <span className="text-blue-500 text-xs">シールド{streak.shieldCount}個</span>}
+            </div>
+          )}
+          {streakMsg && (
+            <div className="mt-2 text-orange-600 font-bold text-sm animate-bounce">{streakMsg}</div>
+          )}
         </div>
+        {history.length > 0 && (
+          <div className="backdrop-blur-sm bg-white/80 border border-white/40 shadow rounded-2xl p-4 mb-6">
+            <h2 className="text-sm font-semibold text-gray-600 mb-2">最近の相談履歴</h2>
+            <ul className="space-y-1">
+              {history.map((h, i) => (
+                <li key={i} className="text-xs text-gray-500 flex justify-between gap-2">
+                  <span className="truncate">{h.text}</span>
+                  <span className="shrink-0">{h.date}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6 space-y-5">
           <div>
