@@ -410,7 +410,7 @@ export default function IryouTool() {
           </div>
         )}
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6 space-y-5">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm border border-white/30 p-6 mb-6 space-y-5">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">カスハラの種別</label>
             <div className="flex flex-wrap gap-2">
@@ -586,7 +586,7 @@ export default function IryouTool() {
             )}
             {tabs && (
               <>
-                <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-white/30 shadow-sm overflow-hidden">
                   <div className="flex border-b border-gray-200 overflow-x-auto">
                     {TABS.map((tab) => (
                       <button
