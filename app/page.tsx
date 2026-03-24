@@ -167,8 +167,8 @@ export default function IryouLP() {
     <main className="min-h-screen bg-white">
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl" aria-label="閉じる">✕</button>
+          <div className="rounded-2xl p-6 max-w-sm w-full shadow-xl relative" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(219,234,254,0.6)' }}>
+            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl" aria-label="閉じる"></button>
             <div className="flex justify-center mb-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -270,7 +270,7 @@ export default function IryouLP() {
             <h2 className="text-2xl font-bold text-gray-900 mb-2">あなたの医院は応招義務を正しく理解していますか？</h2>
             <p className="text-gray-500 text-sm">医師法第19条の応招義務は絶対ではありません。5つの質問に答えて、診療拒否が正当化される可能性を判定します。</p>
           </div>
-          <div className="backdrop-blur-sm bg-white/95 border border-blue-200 rounded-2xl p-6 shadow-lg">
+          <div className="rounded-2xl p-6 shadow-lg" style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(191,219,254,0.7)' }}>
             <div className="space-y-3 mb-6">
               {OHSHO_QUESTIONS.map((q) => (
                 <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors">
@@ -346,12 +346,12 @@ export default function IryouLP() {
               "「カスハラを記録したいが、行政・保険会社への報告に使えるレベルの書き方がわからない」",
             ].map((v, i) => (
               <div key={i} className="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl px-5 py-4">
-                <span className="text-red-400 font-bold text-lg mt-0.5 shrink-0">✗</span>
+                <span className="text-red-400 font-bold text-lg mt-0.5 shrink-0"></span>
                 <p className="text-sm text-gray-700 leading-relaxed">{v}</p>
               </div>
             ))}
           </div>
-          <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+          <div className="mt-8 rounded-xl p-6 text-center" style={{ background: 'rgba(239,246,255,0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(191,219,254,0.6)' }}>
             <p className="text-blue-800 font-bold text-base mb-2">医療クレームAIが、これら全てを解決します</p>
             <p className="text-sm text-blue-700">状況を入力するだけで、医師法・医療法・厚労省ガイドライン準拠の対応文が15秒で生成されます。</p>
             <Link
@@ -370,7 +370,7 @@ export default function IryouLP() {
           <p className="text-center text-gray-500 text-sm mb-10">一般企業向けのクレーム対応では対処できない、医療特有の問題があります</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {MEDICAL_CASES.map((c) => (
-              <div key={c.name} className="border border-gray-200 rounded-xl p-5 bg-white">
+              <div key={c.name} className="rounded-xl p-5" style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(229,231,235,0.8)' }}>
                 <div className="mb-2">{c.icon}</div>
                 <h3 className="font-bold text-gray-900 mb-2">{c.name}</h3>
                 <p className="text-xs text-blue-600 font-medium mb-3">{c.pain}</p>
@@ -430,7 +430,7 @@ export default function IryouLP() {
                 desc: "医療機関名義の公式文書として使える書面通知文を生成。警告・診療お断り・警察連携への言及を含む段階的対応文をそのまま活用できます。",
               },
             ].map((f) => (
-              <div key={f.title} className="backdrop-blur-sm bg-white/90 rounded-xl p-6 border border-gray-200 shadow-sm">
+              <div key={f.title} className="rounded-xl p-6 shadow-sm" style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(229,231,235,0.8)' }}>
                 <div className="mb-2">{f.icon}</div>
                 <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
                 <p className="text-sm text-gray-500">{f.desc}</p>
@@ -450,8 +450,8 @@ export default function IryouLP() {
               { role: "総合病院 医事課長・40代", text: "インシデントレポートの書き方が統一されておらず、弁護士への相談時に資料が不十分なことがありました。このツールで記録品質が格段に上がりました。" },
               { role: "整形外科 看護師長・30代", text: "深夜救急を繰り返し利用する患者への断り文に悩んでいました。毅然とした書面通知文がすぐに作れて、院長・事務長への説明も楽になりました。" },
             ].map((v, i) => (
-              <div key={i} className="bg-white rounded-xl p-5 border border-gray-200">
-                <div className="flex text-yellow-400 text-sm mb-3">{"★★★★★"}</div>
+              <div key={i} className="rounded-xl p-5" style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(229,231,235,0.7)' }}>
+                <div className="flex text-yellow-400 text-sm mb-3">{""}</div>
                 <p className="text-sm text-gray-700 mb-3 leading-relaxed">{v.text}</p>
                 <p className="text-xs text-gray-400">{v.role}</p>
               </div>
@@ -501,7 +501,7 @@ export default function IryouLP() {
                 name: "調剤薬局", detail: "5店舗展開",
               },
             ].map((org) => (
-              <div key={org.name} className="bg-blue-50 border border-blue-100 rounded-xl p-5 text-center">
+              <div key={org.name} className="rounded-xl p-5 text-center" style={{ background: 'rgba(239,246,255,0.82)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(191,219,254,0.7)' }}>
                 <div className="mb-2">{org.icon}</div>
                 <p className="font-bold text-gray-900 text-sm mb-1">{org.name}</p>
                 <p className="text-xs text-blue-600">{org.detail}</p>
@@ -526,12 +526,12 @@ export default function IryouLP() {
               </thead>
               <tbody>
                 {[
-                  { type: "待ち時間・予約", support: "✅" },
-                  { type: "医師・スタッフの態度", support: "✅" },
-                  { type: "説明不足・インフォームドコンセント", support: "✅" },
-                  { type: "医療ミス疑い", support: "✅（専門家紹介含む）" },
-                  { type: "費用・保険請求", support: "✅" },
-                  { type: "セクハラ・プライバシー", support: "✅" },
+                  { type: "待ち時間・予約", support: "OK" },
+                  { type: "医師・スタッフの態度", support: "OK" },
+                  { type: "説明不足・インフォームドコンセント", support: "OK" },
+                  { type: "医療ミス疑い", support: "OK（専門家紹介含む）" },
+                  { type: "費用・保険請求", support: "OK" },
+                  { type: "セクハラ・プライバシー", support: "OK" },
                 ].map((row, i) => (
                   <tr key={row.type} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                     <td className="px-5 py-3 text-gray-700 border-t border-gray-100">{row.type}</td>
@@ -555,8 +555,8 @@ export default function IryouLP() {
             <p className="text-gray-500 text-sm">医療過誤クレーム・訴訟対応に実際にかかるコストと比較してください</p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
-            <div className="bg-white border-2 border-red-200 rounded-2xl p-6">
-              <p className="text-sm font-bold text-red-600 mb-4 text-center">❌ 弁護士対応の場合</p>
+            <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.90)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '2px solid rgba(252,165,165,0.7)' }}>
+              <p className="text-sm font-bold text-red-600 mb-4 text-center">NG 弁護士対応の場合</p>
               <div className="space-y-3">
                 {[
                   { label: "法律相談料（60分）", cost: "¥1万〜" },
@@ -575,7 +575,7 @@ export default function IryouLP() {
             </div>
             <div className="bg-white border-2 border-blue-500 rounded-2xl p-6 relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">初動対応を自動化</div>
-              <p className="text-sm font-bold text-blue-600 mb-4 text-center">✅ 医療クレームAIの場合</p>
+              <p className="text-sm font-bold text-blue-600 mb-4 text-center">OK 医療クレームAIの場合</p>
               <div className="space-y-3">
                 {[
                   { label: "初動スクリプト生成", cost: "無料（3回）" },
@@ -676,7 +676,7 @@ export default function IryouLP() {
               <p className="text-gray-400 text-sm mb-6">1事業所向け</p>
               <ul className="space-y-3 text-sm text-gray-700 mb-8">
                 {["カスハラ対応文 月100件生成", "インシデントレポート生成", "医療特化プロンプト対応", "いつでも解約可能"].map((f) => (
-                  <li key={f} className="flex items-center gap-2"><span className="text-green-500 font-bold">✓</span>{f}</li>
+                  <li key={f} className="flex items-center gap-2"><span className="text-green-500 font-bold"></span>{f}</li>
                 ))}
               </ul>
               <button
@@ -694,7 +694,7 @@ export default function IryouLP() {
               <p className="text-gray-400 text-sm mb-6">複数事業所・法人一括契約</p>
               <ul className="space-y-3 text-sm text-gray-700 mb-8">
                 {["スタータープラン全機能", "複数事業所の一括管理", "スタッフ研修用マニュアル生成", "優先サポート・訪問研修相談可"].map((f) => (
-                  <li key={f} className="flex items-center gap-2"><span className="text-green-500 font-bold">✓</span>{f}</li>
+                  <li key={f} className="flex items-center gap-2"><span className="text-green-500 font-bold"></span>{f}</li>
                 ))}
               </ul>
               <a
@@ -732,9 +732,9 @@ export default function IryouLP() {
             </button>
           </div>
           <div className="flex justify-center gap-6 mt-6 text-blue-200 text-xs">
-            <span>✓ 登録不要</span>
-            <span>✓ 医師法・医療法準拠</span>
-            <span>✓ いつでも解約可</span>
+            <span> 登録不要</span>
+            <span> 医師法・医療法準拠</span>
+            <span> いつでも解約可</span>
           </div>
         </div>
       </section>
