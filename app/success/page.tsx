@@ -69,7 +69,7 @@ function SuccessContent() {
       {showConfetti && <Confetti />}
       <div className="max-w-lg w-full mx-auto px-4">
         <div className="text-center mb-10">
-          <div className="text-7xl mb-4">🏥</div>
+          <div className="text-7xl mb-4"></div>
           <h1 className="text-3xl font-black text-blue-800 mb-2">プレミアム登録完了！</h1>
           <p className="text-gray-500">医療クレームAIのフル機能が解放されました</p>
         </div>
@@ -77,10 +77,10 @@ function SuccessContent() {
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
           <h2 className="font-bold text-blue-800 mb-3 text-sm">あなたの特典</h2>
           <ul className="space-y-2 text-sm text-blue-900">
-            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5">✓</span>医療クレーム対応文・書面通知文が無制限生成</li>
-            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5">✓</span>厚労省ガイドライン準拠の医療特化対応文</li>
-            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5">✓</span>証拠記録テンプレート（インシデントレポート）</li>
-            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5">✓</span>書面通知文テンプレート（診療拒否・警告文）</li>
+            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5"></span>医療クレーム対応文・書面通知文が無制限生成</li>
+            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5"></span>厚労省ガイドライン準拠の医療特化対応文</li>
+            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5"></span>証拠記録テンプレート（インシデントレポート）</li>
+            <li className="flex items-start gap-2"><span className="text-blue-600 mt-0.5"></span>書面通知文テンプレート（診療拒否・警告文）</li>
           </ul>
         </div>
 

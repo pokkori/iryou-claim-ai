@@ -27,7 +27,7 @@ const CASES = [
     result:
       "書面送付後、同様のクレームは減少。記録が蓄積されたことで、その後の対応も迷いなく実施できるようになった。",
     law: "医師法第19条・厚労省カスハラGL",
-    icon: "⚠️",
+    icon: "!",
   },
   {
     no: 2,
@@ -45,7 +45,7 @@ const CASES = [
     result:
       "書面での通知後、深夜来院の頻度が大幅に減少。スタッフからも「対応の根拠ができた」と好評。",
     law: "医師法第19条（応招義務の例外）・厚労省令和元年12月25日通知",
-    icon: "🕐",
+    icon: "",
   },
   {
     no: 3,
@@ -63,7 +63,7 @@ const CASES = [
     result:
       "書面通知後、問題発言が停止。看護師の精神的負担も軽減。院内でセクハラ対応マニュアルを整備するきっかけになった。",
     law: "刑法第176条（不同意わいせつ）・男女雇用機会均等法",
-    icon: "🚨",
+    icon: "",
   },
   {
     no: 4,
@@ -81,7 +81,7 @@ const CASES = [
     result:
       "書面送付後、患者から連絡があり投稿を削除。法的リスクを明示した書面が抑止力になった。",
     law: "刑法第230条（名誉毀損）・刑法第233条（偽計業務妨害）",
-    icon: "📺",
+    icon: "",
   },
   {
     no: 5,
@@ -99,7 +99,7 @@ const CASES = [
     result:
       "書面を受け取った後、患者の言動が落ち着いた。スタッフも「組織として守ってもらえる」という安心感を持てるようになった。",
     law: "刑法第222条（脅迫罪）・厚労省カスハラGL",
-    icon: "💴",
+    icon: "",
   },
 ];
 
@@ -130,7 +130,7 @@ export default function MedicalCasesPage() {
       <nav className="border-b border-gray-100 px-6 py-4 bg-white sticky top-0 z-10">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <Link href="/" className="font-bold text-gray-900">
-            🏥 医療クレームAI
+             医療クレームAI
           </Link>
           <Link
             href="/tool"
@@ -172,9 +172,9 @@ export default function MedicalCasesPage() {
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 mb-10">
           <p className="text-blue-800 text-sm font-bold mb-1">この記事でわかること</p>
           <ul className="text-sm text-blue-700 space-y-1">
-            <li>✅ 医療現場で頻繁に発生するカスハラ5パターンの実例</li>
-            <li>✅ 各事例の法的根拠と具体的な対応ステップ</li>
-            <li>✅ 対応文書・インシデントレポートの活用方法</li>
+            <li>OK 医療現場で頻繁に発生するカスハラ5パターンの実例</li>
+            <li>OK 各事例の法的根拠と具体的な対応ステップ</li>
+            <li>OK 対応文書・インシデントレポートの活用方法</li>
           </ul>
         </div>
 
@@ -258,7 +258,7 @@ export default function MedicalCasesPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl hover:bg-indigo-800 transition-colors text-sm"
           >
-            ⚖️ 弁護士ドットコムで無料相談する →
+             弁護士ドットコムで無料相談する →
           </a>
           <p className="text-xs text-gray-400 mt-2">※弁護士ドットコムの広告リンクです</p>
         </div>

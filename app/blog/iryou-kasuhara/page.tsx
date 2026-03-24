@@ -13,35 +13,35 @@ export const metadata: Metadata = {
 const MEDICAL_KASUHARA_TYPES = [
   {
     type: "暴言・脅迫",
-    icon: "😤",
+    icon: "",
     examples: ["「殺すぞ」等の脅迫発言", "受付での怒鳴り・罵倒", "SNS炎上を匂わせる発言"],
     law: "刑法第222条（脅迫罪）・第208条（暴行罪）",
     response: "記録・警察連絡・書面通知が有効",
   },
   {
     type: "医療過誤クレーム（根拠なし）",
-    icon: "⚠️",
+    icon: "!",
     examples: ["根拠なき医療ミス主張", "「弁護士に相談する」の繰り返し", "カルテ開示要求と虚偽主張"],
     law: "名誉毀損罪・業務妨害罪",
     response: "事実確認・記録・書面対応が最重要",
   },
   {
     type: "過剰要求・長時間拘束",
-    icon: "🕐",
+    icon: "",
     examples: ["診察後の2時間以上の居座り", "深夜救急の繰り返し利用", "規定外処置の強要"],
     law: "不退去罪・業務妨害罪",
     response: "応招義務の範囲確認・書面通知",
   },
   {
     type: "スタッフへのセクハラ",
-    icon: "🚨",
+    icon: "",
     examples: ["看護師への性的発言・接触", "盗撮・無断録音", "「担当を替えろ」の繰り返し"],
     law: "強制わいせつ罪・不正競争防止法",
     response: "複数体制・警察連携・契約解除予告",
   },
   {
     type: "行政・マスコミへの脅迫",
-    icon: "📺",
+    icon: "",
     examples: ["「保健所・厚労省に言う」", "「テレビに告発する」", "口コミサイトへの虚偽投稿脅迫"],
     law: "名誉毀損罪・業務妨害罪",
     response: "証拠保全・毅然とした書面対応",
@@ -95,12 +95,12 @@ export default function IryouKasuharaPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-center text-xs py-2 px-4">
-        ⚠️ 本サービスはAIによる参考情報の提供です。法的助言ではありません。実際の対応は弁護士・医療機関法務担当者にご相談ください。
+        ! 本サービスはAIによる参考情報の提供です。法的助言ではありません。実際の対応は弁護士・医療機関法務担当者にご相談ください。
       </div>
 
       <nav className="border-b border-gray-100 px-6 py-4 sticky top-0 bg-white/95 backdrop-blur z-10">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="font-bold text-gray-900">🏥 医療クレームAI</Link>
+          <Link href="/" className="font-bold text-gray-900"> 医療クレームAI</Link>
           <Link href="/tool" className="bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors">
             無料で試す（3回）
           </Link>
@@ -137,7 +137,7 @@ export default function IryouKasuharaPage() {
       {/* 目次 */}
       <section className="py-8 px-4 bg-blue-50 border-b border-blue-100">
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-bold text-blue-800 text-sm mb-3">📋 このガイドで分かること</h2>
+          <h2 className="font-bold text-blue-800 text-sm mb-3"> このガイドで分かること</h2>
           <ol className="space-y-1 text-sm text-blue-700">
             {[
               "医療カスハラの定義と一般企業との違い",
@@ -166,7 +166,7 @@ export default function IryouKasuharaPage() {
             </p>
           </div>
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
-            <p className="text-amber-800 text-sm font-bold mb-1">✅ 正当な苦情との区別が重要</p>
+            <p className="text-amber-800 text-sm font-bold mb-1">OK 正当な苦情との区別が重要</p>
             <p className="text-amber-700 text-sm">待ち時間への不満・治療方針への疑問・スタッフの態度への苦情は「正当なフィードバック」として受け止めるべきです。一方で、脅迫・暴言・過剰要求はカスハラとして毅然と対応することが求められます。</p>
           </div>
           <p className="text-gray-700 text-sm leading-relaxed">
@@ -233,7 +233,7 @@ export default function IryouKasuharaPage() {
             ))}
           </div>
           <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
-            <p className="font-bold mb-1">💡 AIが応招義務の範囲を判定します</p>
+            <p className="font-bold mb-1"> AIが応招義務の範囲を判定します</p>
             <p className="text-blue-700 text-xs">医療クレームAIは、ケースごとに「応招義務の適用範囲」を判定し、診察を断れるかどうかの目安と対応文書を生成します。</p>
           </div>
         </div>

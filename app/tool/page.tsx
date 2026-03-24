@@ -59,11 +59,11 @@ function renderMarkdown(text: string): string {
 }
 
 const SECTION_TYPES = [
-  { value: "外来", label: "🏥 外来" },
-  { value: "救急", label: "🚑 救急" },
-  { value: "入院病棟", label: "🛏️ 入院病棟" },
-  { value: "薬局", label: "💊 薬局" },
-  { value: "検査", label: "🔬 検査" },
+  { value: "外来", label: " 外来" },
+  { value: "救急", label: " 救急" },
+  { value: "入院病棟", label: "️ 入院病棟" },
+  { value: "薬局", label: " 薬局" },
+  { value: "検査", label: " 検査" },
 ];
 
 const CLAIM_RECORD_TEMPLATE = `【発生日時】〇〇年〇〇月〇〇日
@@ -83,27 +83,27 @@ const CASE_TYPES = [
 
 const DEPARTMENT_TYPES = [
   { value: "", label: "診療科を選択（任意）" },
-  { value: "内科", label: "🩺 内科" },
-  { value: "外科", label: "🔪 外科" },
-  { value: "精神科・心療内科", label: "🧠 精神科・心療内科" },
-  { value: "小児科", label: "👶 小児科" },
-  { value: "産婦人科", label: "🤰 産婦人科" },
-  { value: "救急・救命", label: "🚑 救急・救命" },
-  { value: "整形外科", label: "🦴 整形外科" },
-  { value: "眼科・耳鼻科", label: "👁️ 眼科・耳鼻科" },
-  { value: "歯科・口腔外科", label: "🦷 歯科・口腔外科" },
-  { value: "訪問診療・在宅医療", label: "🏠 訪問診療・在宅医療" },
-  { value: "介護施設・老人ホーム", label: "🏥 介護施設・老人ホーム" },
+  { value: "内科", label: " 内科" },
+  { value: "外科", label: " 外科" },
+  { value: "精神科・心療内科", label: " 精神科・心療内科" },
+  { value: "小児科", label: " 小児科" },
+  { value: "産婦人科", label: " 産婦人科" },
+  { value: "救急・救命", label: " 救急・救命" },
+  { value: "整形外科", label: " 整形外科" },
+  { value: "眼科・耳鼻科", label: "️ 眼科・耳鼻科" },
+  { value: "歯科・口腔外科", label: " 歯科・口腔外科" },
+  { value: "訪問診療・在宅医療", label: " 訪問診療・在宅医療" },
+  { value: "介護施設・老人ホーム", label: " 介護施設・老人ホーム" },
 ];
 
 const REQUESTER_TYPES = ["患者本人", "家族・親族", "その他"];
 const SEVERITY_LEVELS = [
-  { value: "軽度", label: "🟢 軽度（一般的な苦情・要望）", score: 2, color: "bg-green-500" },
-  { value: "中度", label: "🟡 中度（度を超えた要求・繰り返し）", score: 5, color: "bg-yellow-400" },
-  { value: "重度", label: "🔴 重度（暴言・脅迫・不当要求）", score: 9, color: "bg-red-500" },
+  { value: "軽度", label: " 軽度（一般的な苦情・要望）", score: 2, color: "bg-green-500" },
+  { value: "中度", label: " 中度（度を超えた要求・繰り返し）", score: 5, color: "bg-yellow-400" },
+  { value: "重度", label: " 重度（暴言・脅迫・不当要求）", score: 9, color: "bg-red-500" },
 ];
 
-const TABS = ["💬 口頭スクリプト", "📄 書面通知文", "📋 インシデント記録", "📌 院内掲示通知"] as const;
+const TABS = [" 口頭スクリプト", " 書面通知文", " インシデント記録", " 院内掲示通知"] as const;
 type TabLabel = typeof TABS[number];
 
 const FREE_LIMIT = 3;
@@ -115,10 +115,10 @@ function parseResultToTabs(text: string): Record<TabLabel, string> {
   // 院内掲示通知は書面通知文から自動生成（掲示用に整形）
   const keijiText = parts[1] ? generateKeijiText(parts[1]) : "";
   return {
-    "💬 口頭スクリプト": parts[0] || "",
-    "📄 書面通知文": parts[1] || "",
-    "📋 インシデント記録": parts[2] || "",
-    "📌 院内掲示通知": keijiText,
+    " 口頭スクリプト": parts[0] || "",
+    " 書面通知文": parts[1] || "",
+    " インシデント記録": parts[2] || "",
+    " 院内掲示通知": keijiText,
   };
 }
 
@@ -159,7 +159,7 @@ function parseResult(text: string) {
 }
 
 // コピーボタン（フィードバック付き）
-function CopyBtn({ text, label = "📋 コピーする", className = "" }: { text: string; label?: string; className?: string }) {
+function CopyBtn({ text, label = " コピーする", className = "" }: { text: string; label?: string; className?: string }) {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
@@ -169,46 +169,46 @@ function CopyBtn({ text, label = "📋 コピーする", className = "" }: { tex
   return (
     <div className="relative inline-block">
       <button onClick={handleCopy} className={`text-xs hover:underline transition-colors ${className}`}>
-        {copied ? "✅ コピー完了！" : label}
+        {copied ? "OK コピー完了！" : label}
       </button>
       {copied && (
         <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs rounded-lg px-2 py-1 whitespace-nowrap shadow-lg animate-bounce">
-          ✅ コピー完了！
+          OK コピー完了！
         </div>
       )}
     </div>
   );
 }
 
-const SCENARIO_TABS = ["🏥 外来", "🛏️ 入院", "🚑 急患・救急"] as const;
+const SCENARIO_TABS = [" 外来", "️ 入院", " 急患・救急"] as const;
 type ScenarioTab = typeof SCENARIO_TABS[number];
 
 const SCENARIO_PRESETS: Record<ScenarioTab, { label: string; text: string }[]> = {
-  "🏥 外来": [
-    { label: "😡 暴言・怒鳴り", text: "外来受付で患者の家族が「なぜこんなに待たせるんだ」「担当医を替えろ」と大声で怒鳴り続け、他の患者が怖がっている。" },
+  " 外来": [
+    { label: " 暴言・怒鳴り", text: "外来受付で患者の家族が「なぜこんなに待たせるんだ」「担当医を替えろ」と大声で怒鳴り続け、他の患者が怖がっている。" },
     { label: "⏰ 長時間居座り", text: "診察終了後も「もっと説明しろ」「納得できない」と2時間以上外来診察室に居座り、次の患者の診察が滞っている。" },
-    { label: "💊 処方変更要求", text: "患者がインターネット情報をもとに、担当医の処方に強く異議を唱え「〇〇を処方しろ」「この薬は効かない」と外来で繰り返し要求してくる。" },
-    { label: "📱 無断録音・録画", text: "外来診察中に患者・家族が許可なく録音・録画し、「Xで公開する」と脅している。スタッフのプライバシーへの影響が心配。" },
-    { label: "💴 会計拒否", text: "会計窓口で「この金額はおかしい」と支払いを拒否し、受付スタッフを怒鳴りつけている。保険請求の説明をしても聞かない。" },
+    { label: " 処方変更要求", text: "患者がインターネット情報をもとに、担当医の処方に強く異議を唱え「〇〇を処方しろ」「この薬は効かない」と外来で繰り返し要求してくる。" },
+    { label: " 無断録音・録画", text: "外来診察中に患者・家族が許可なく録音・録画し、「Xで公開する」と脅している。スタッフのプライバシーへの影響が心配。" },
+    { label: " 会計拒否", text: "会計窓口で「この金額はおかしい」と支払いを拒否し、受付スタッフを怒鳴りつけている。保険請求の説明をしても聞かない。" },
   ],
-  "🛏️ 入院": [
-    { label: "🏥 転院強要", text: "入院患者の家族が「他の病院に転院させる」「院長を出せ」と繰り返し要求し、主治医への罵倒も続いている。" },
-    { label: "🌙 深夜ナース呼び出し", text: "入院患者が深夜に些細なことで何度もナースコールを押し、「すぐ来い」「仕事しろ」と看護師に怒鳴っている。業務に支障が出ている。" },
-    { label: "👨‍👩‍👧 家族の面会トラブル", text: "面会時間外に患者家族が病棟に入り込み、「家族なのになぜ会えないんだ」と看護師に詰め寄り、他の入院患者の迷惑になっている。" },
-    { label: "📋 カルテ開示要求", text: "患者家族がカルテ・検査記録の即時全開示を要求し、「隠蔽している」「医療ミスの証拠がある」と主張して病棟で声を荒げている。" },
-    { label: "🍱 食事・設備クレーム", text: "入院患者が食事内容・病室設備について過剰な変更要求を繰り返し、担当看護師に「サービスが悪い」と毎日クレームを入れている。" },
+  "️ 入院": [
+    { label: " 転院強要", text: "入院患者の家族が「他の病院に転院させる」「院長を出せ」と繰り返し要求し、主治医への罵倒も続いている。" },
+    { label: " 深夜ナース呼び出し", text: "入院患者が深夜に些細なことで何度もナースコールを押し、「すぐ来い」「仕事しろ」と看護師に怒鳴っている。業務に支障が出ている。" },
+    { label: "‍‍ 家族の面会トラブル", text: "面会時間外に患者家族が病棟に入り込み、「家族なのになぜ会えないんだ」と看護師に詰め寄り、他の入院患者の迷惑になっている。" },
+    { label: " カルテ開示要求", text: "患者家族がカルテ・検査記録の即時全開示を要求し、「隠蔽している」「医療ミスの証拠がある」と主張して病棟で声を荒げている。" },
+    { label: " 食事・設備クレーム", text: "入院患者が食事内容・病室設備について過剰な変更要求を繰り返し、担当看護師に「サービスが悪い」と毎日クレームを入れている。" },
   ],
-  "🚑 急患・救急": [
-    { label: "🔁 繰り返し救急利用", text: "同じ患者が軽症にもかかわらず深夜救急を週3〜4回繰り返し利用し、「すぐ入院させろ」と要求している。真に緊急な患者の対応が遅れている。" },
-    { label: "💉 処置拒否・暴れる", text: "救急搬送された患者が酩酊状態で処置を拒否し、スタッフに怒鳴りながら暴れている。周囲の患者への影響もある。" },
-    { label: "👪 家族の同席強要", text: "救急処置中に家族が処置室への同席を強く要求し、「何をしているのか見せろ」と入室しようとしている。" },
-    { label: "⚠️ 応招義務を盾に", text: "診察内容に不満を持つ患者が「応招義務があるから断れないはずだ」と主張し、規定外の検査・処置を強要している。" },
-    { label: "🚓 警察連携検討", text: "救急来院した患者が「殺すぞ」「家に押しかける」と脅迫的発言をし、スタッフが身の危険を感じている。警察への連絡を検討している。" },
+  " 急患・救急": [
+    { label: " 繰り返し救急利用", text: "同じ患者が軽症にもかかわらず深夜救急を週3〜4回繰り返し利用し、「すぐ入院させろ」と要求している。真に緊急な患者の対応が遅れている。" },
+    { label: " 処置拒否・暴れる", text: "救急搬送された患者が酩酊状態で処置を拒否し、スタッフに怒鳴りながら暴れている。周囲の患者への影響もある。" },
+    { label: " 家族の同席強要", text: "救急処置中に家族が処置室への同席を強く要求し、「何をしているのか見せろ」と入室しようとしている。" },
+    { label: "! 応招義務を盾に", text: "診察内容に不満を持つ患者が「応招義務があるから断れないはずだ」と主張し、規定外の検査・処置を強要している。" },
+    { label: " 警察連携検討", text: "救急来院した患者が「殺すぞ」「家に押しかける」と脅迫的発言をし、スタッフが身の危険を感じている。警察への連絡を検討している。" },
   ],
 };
 
 function ScenarioPresets({ onSelect }: { onSelect: (text: string) => void }) {
-  const [activeTab, setActiveTab] = useState<ScenarioTab>("🏥 外来");
+  const [activeTab, setActiveTab] = useState<ScenarioTab>(" 外来");
   return (
     <div className="border border-gray-200 rounded-xl overflow-hidden">
       <div className="flex bg-gray-50 border-b border-gray-200">
@@ -255,7 +255,7 @@ export default function IryouTool() {
   const [situation, setSituation] = useState("");
   const [loading, setLoading] = useState(false);
   const [tabs, setTabs] = useState<Record<TabLabel, string> | null>(null);
-  const [activeTab, setActiveTab] = useState<TabLabel>("💬 口頭スクリプト");
+  const [activeTab, setActiveTab] = useState<TabLabel>(" 口頭スクリプト");
   const [error, setError] = useState("");
   const [count, setCount] = useState(0);
   const [hitLimit, setHitLimit] = useState(false);
@@ -306,7 +306,7 @@ export default function IryouTool() {
         setTabs(parseResultToTabs(fullText));
       }
       setTabs(parseResultToTabs(fullText));
-      setActiveTab("💬 口頭スクリプト");
+      setActiveTab(" 口頭スクリプト");
       setCount(newCount);
       localStorage.setItem(STORAGE_KEY, String(newCount));
       if (newCount >= FREE_LIMIT) { track('paywall_shown', { service: '医療クレームAI' }); setHitLimit(true); }
@@ -333,7 +333,7 @@ export default function IryouTool() {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="max-w-md w-full bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-sm text-center border border-white/20">
-          <div className="text-5xl mb-4">🔒</div>
+          <div className="text-5xl mb-4"></div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">無料体験（{FREE_LIMIT}回）終了</h2>
           <p className="text-gray-500 text-sm mb-6">
             プレミアムプランで医療クレーム対応文を無制限に生成できます。
@@ -346,15 +346,15 @@ export default function IryouTool() {
           {/* 安心保証バッジ */}
           <div className="flex items-center justify-center gap-4 mt-3">
             <div className="flex items-center gap-1 text-xs text-slate-400">
-              <span>🔒</span>
+              <span></span>
               <span>SSL暗号化決済</span>
             </div>
             <div className="flex items-center gap-1 text-xs text-slate-400">
-              <span>✅</span>
+              <span>OK</span>
               <span>いつでもキャンセル可能</span>
             </div>
             <div className="flex items-center gap-1 text-xs text-slate-400">
-              <span>💳</span>
+              <span></span>
               <span>PAY.JP安全決済</span>
             </div>
           </div>
@@ -367,7 +367,7 @@ export default function IryouTool() {
         {showPayjp && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-              <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="プランダイアログを閉じる">✕</button>
+              <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="プランダイアログを閉じる"></button>
               <h2 className="text-lg font-bold mb-4 text-center">プランに登録</h2>
               <KomojuButton planId="business" planLabel="医療機関プラン ¥9,800/月を始める" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
             </div>
@@ -512,7 +512,7 @@ export default function IryouTool() {
                 className="text-xs px-3 py-1.5 rounded-full border border-emerald-400 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors font-medium min-h-[44px]"
                 aria-label="クレーム記録テンプレートを状況詳細欄に挿入する"
               >
-                📋 クレーム記録テンプレートを挿入
+                 クレーム記録テンプレートを挿入
               </button>
             </div>
             {/* 診療科別シナリオプリセット（外来/入院/急患タブ） */}
@@ -551,7 +551,7 @@ export default function IryouTool() {
         <div className={`transition-all duration-500 overflow-hidden ${completionVisible ? "max-h-48 opacity-100 mb-4" : "max-h-0 opacity-0"}`}>
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl px-5 py-4 shadow-lg">
             <div className="flex items-center gap-2 font-bold text-base mb-3">
-              <span className="text-2xl">✅</span>
+              <span className="text-2xl">OK</span>
               <span>対応文書 作成完了！</span>
             </div>
             {/* カスハラ深刻度スコアバー */}
@@ -581,7 +581,7 @@ export default function IryouTool() {
               <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-white/20 p-10 text-center">
                 <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mx-auto mb-4" />
                 <p className="text-sm text-gray-500 font-medium">AIが対応文を作成中...</p>
-                <p className="text-xs text-gray-400 mt-1">💬 口頭スクリプト → 📄 書面通知文 → 📋 インシデント記録</p>
+                <p className="text-xs text-gray-400 mt-1"> 口頭スクリプト →  書面通知文 →  インシデント記録</p>
               </div>
             )}
             {tabs && (
@@ -606,7 +606,7 @@ export default function IryouTool() {
                   </div>
                   <div className="p-5">
                     <div className="flex justify-end mb-3">
-                      <CopyBtn text={tabs[activeTab]} label="📋 コピーする" className="text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-50" />
+                      <CopyBtn text={tabs[activeTab]} label=" コピーする" className="text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-50" />
                     </div>
                     <div
                       className="prose prose-sm max-w-none min-h-[180px]"
@@ -632,12 +632,12 @@ export default function IryouTool() {
                 </div>
                 {/* 次のアクション3選 */}
                 <div className="bg-white/90 backdrop-blur-sm border border-blue-200/60 rounded-xl p-4">
-                  <p className="text-sm font-bold text-blue-800 mb-3">📋 次にやるべきこと3選</p>
+                  <p className="text-sm font-bold text-blue-800 mb-3"> 次にやるべきこと3選</p>
                   <ol className="space-y-2">
                     {[
-                      { icon: "📝", text: "上長・事務長に今回のケースを口頭で報告する" },
-                      { icon: "🗂️", text: "インシデント記録に日時・患者情報・対応内容を記録する" },
-                      { icon: "📞", text: "深刻なケース（脅迫・傷害リスク）は警察・弁護士に相談する" },
+                      { icon: "", text: "上長・事務長に今回のケースを口頭で報告する" },
+                      { icon: "️", text: "インシデント記録に日時・患者情報・対応内容を記録する" },
+                      { icon: "", text: "深刻なケース（脅迫・傷害リスク）は警察・弁護士に相談する" },
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
                         <span className="text-lg leading-none">{item.icon}</span>
@@ -648,7 +648,7 @@ export default function IryouTool() {
                 </div>
                 {/* 弁護士相談アフィリエイト（A8.net申請後URLを差し替え） */}
                 <div className="bg-blue-50/90 backdrop-blur-sm border border-blue-200/60 rounded-xl p-4">
-                  <p className="text-sm font-black text-blue-900 mb-1">⚖️ 深刻なクレームは弁護士へ</p>
+                  <p className="text-sm font-black text-blue-900 mb-1"> 深刻なクレームは弁護士へ</p>
                   <p className="text-xs text-blue-700 mb-3">脅迫・不退去・傷害リスクは弁護士対応が必須。医療機関向け顧問契約も確認できます。</p>
                   {/* TODO: Replace href with A8.net affiliate URL after approval */}
                   <a href="https://www.bengo4.com/c_1011/" target="_blank" rel="noopener noreferrer sponsored"
@@ -663,7 +663,7 @@ export default function IryouTool() {
                 </div>
                 {/* ストレスケアアフィリエイト（A8.net SOELU） */}
                 <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-4">
-                  <p className="text-sm font-black text-cyan-900 mb-1">🧘 医療従事者のストレス発散・ヨガで心身リセット</p>
+                  <p className="text-sm font-black text-cyan-900 mb-1"> 医療従事者のストレス発散・ヨガで心身リセット</p>
                   <p className="text-xs text-cyan-700 mb-3">クレーム対応後の緊張・疲労をほぐすオンラインヨガ。自宅で好きな時間に受講でき、医療スタッフの心身ケアにおすすめです。</p>
                   <a href="https://px.a8.net/svt/ejp?a8mat=4AZIOF+8OKLDE+4EPM+63OY9" target="_blank" rel="noopener noreferrer sponsored"
                     className="flex items-center justify-between bg-white border border-cyan-300 rounded-xl px-3 py-2.5 hover:bg-cyan-50 transition-colors">
@@ -676,7 +676,7 @@ export default function IryouTool() {
                   <p className="text-xs text-slate-400 text-center mt-2">※ 広告・PR掲載</p>
                 </div>
                 <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 text-center">
-                  ⚠️ この内容はAIが生成した参考文書です。法的助言・医療アドバイスではありません。<br />
+                  ! この内容はAIが生成した参考文書です。法的助言・医療アドバイスではありません。<br />
                   実際の対応にご使用の際は、医療機関の弁護士・法務担当者に確認の上ご使用ください。
                 </div>
               </>
@@ -688,7 +688,7 @@ export default function IryouTool() {
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 max-w-sm w-full shadow-xl relative">
-            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl">✕</button>
+            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl"></button>
             <h2 className="text-lg font-bold mb-4 text-center">プランに登録</h2>
             <KomojuButton planId="business" planLabel="医療機関プラン ¥9,800/月を始める" className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
           </div>
