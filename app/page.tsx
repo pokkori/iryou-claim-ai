@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import KomojuButton from "@/components/KomojuButton";
+import { THEMES } from "@/lib/design-system-themes";
+const T = THEMES.legal;
 
 // カスハラ判定チェッカー
 const KASUHARA_CHECKER_QUESTIONS = [
@@ -104,7 +106,7 @@ const MEDICAL_CASES = [
   },
   {
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
@@ -164,24 +166,27 @@ export default function IryouLP() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen text-white relative" style={{ background: T.bg }}>
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        {[{size:4,x:'10%',y:'20%',dur:'6s',delay:'0s'},{size:3,x:'85%',y:'15%',dur:'8s',delay:'1s'},{size:5,x:'70%',y:'60%',dur:'7s',delay:'2s'},{size:3,x:'25%',y:'75%',dur:'9s',delay:'0.5s'},{size:4,x:'50%',y:'40%',dur:'10s',delay:'3s'},{size:6,x:'90%',y:'80%',dur:'7s',delay:'1.5s'}].map((p,i)=>(<div key={i} className="absolute rounded-full animate-pulse" style={{width:p.size,height:p.size,left:p.x,top:p.y,background:T.particleColor,animationDuration:p.dur,animationDelay:p.delay}}/>))}
+      </div>
       {showPayjp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="rounded-2xl p-6 max-w-sm w-full shadow-xl relative" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(219,234,254,0.6)' }}>
-            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-gray-400 text-xl" aria-label="閉じる"></button>
+            <button onClick={() => setShowPayjp(false)} className="absolute top-3 right-3 text-white/40 text-xl" aria-label="閉じる"></button>
             <div className="flex justify-center mb-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
             </div>
             <h2 className="text-lg font-bold mb-2 text-center">医療機関プラン</h2>
-            <p className="text-sm text-gray-500 mb-4 text-center">月額¥9,800で無制限利用</p>
-            <KomojuButton planId={selectedPlan ?? "business"} planLabel={selectedPlan === "business" ? "プロプラン ¥9,800/月を始める" : "クリニックプラン ¥9,800/月を始める"} className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50" />
+            <p className="text-sm text-white/50 mb-4 text-center">月額¥9,800で無制限利用</p>
+            <KomojuButton planId={selectedPlan ?? "business"} planLabel={selectedPlan === "business" ? "プロプラン ¥9,800/月を始める" : "クリニックプラン ¥9,800/月を始める"} className="w-full bg-blue-500 text-white font-bold py-3 rounded-xl hover:bg-blue-400 disabled:opacity-50" />
           </div>
         </div>
       )}
 
-      <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-center text-xs py-2.5 px-4 font-medium">
+      <div className="bg-amber-500/10 border-b border-amber-200 text-amber-800 text-center text-xs py-2.5 px-4 font-medium">
         【注意】本サービスはAIによる参考情報の提供であり、法的助言・医療アドバイスではありません。実際の対応は弁護士・医療機関の法務担当者にご相談ください。正当なご意見・改善要望はクレームとは区別して丁寧に対応することを推奨しています。
       </div>
 
@@ -189,10 +194,10 @@ export default function IryouLP() {
         【重要】カスハラ対策義務化（2026年10月1日施行）まで{daysLeft !== null ? <strong> あと{daysLeft}日 </strong> : ""}— 医療機関も対象です
       </div>
 
-      <nav className="border-b border-gray-100 px-6 py-4 sticky top-0 bg-white/95 backdrop-blur z-10">
+      <nav className="px-6 py-4 sticky top-0 z-10 border-b border-white/5" style={{ background: 'rgba(11,15,30,0.85)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <span className="font-bold text-gray-900 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+          <span className="font-bold text-white flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
             医療クレームAI
@@ -200,7 +205,8 @@ export default function IryouLP() {
           <Link
             href="/tool"
             aria-label="無料でAI対応文を生成する（3回）"
-            className="bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors"
+            className="text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-300 hover:scale-105 min-h-[44px] flex items-center"
+            style={{background: T.gradientBtn, boxShadow: `0 0 20px ${T.primary}4D`}}
           >
             無料で試す（3回）
           </Link>
@@ -210,50 +216,51 @@ export default function IryouLP() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-sky-50 pointer-events-none" />
         <div className="relative max-w-4xl mx-auto px-6 py-20 text-center">
-          <div className="inline-block bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full mb-6 border border-blue-200">
+          <div className="inline-block bg-blue-500/10 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full mb-6 border border-blue-200">
             クリニック・診療所・病院・医療法人 向け
           </div>
           {/* カスハラ義務化バッジ */}
-          <div className="mb-5 inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-4 py-2 text-sm shadow-sm">
+          <div className="mb-5 inline-flex items-center gap-2 bg-white/[0.05] border border-blue-200 rounded-full px-4 py-2 text-sm shadow-lg">
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-400">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             </span>
-            <span className="text-blue-700 font-semibold">2026年10月 カスハラ対策義務化 — <strong>医療機関も対象</strong></span>
+            <span className="text-blue-400 font-semibold">2026年10月 カスハラ対策義務化 — <strong>医療機関も対象</strong></span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
             患者・家族からのカスハラ。<br />
-            <span className="text-blue-600">医療スタッフを守る対応文が15秒で作れます。</span>
+            <span style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 50%, #6366F1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>医療スタッフを守る対応文が15秒で作れます。</span>
           </h1>
-          <p className="text-lg text-gray-500 mb-4 max-w-2xl mx-auto">
+          <p className="text-lg text-white/50 mb-4 max-w-2xl mx-auto">
             暴言・医療過誤クレーム・セクハラ・深夜救急の乱用——医療現場特有のカスハラに特化したAIが、
             厚労省ガイドライン準拠の対応文・断り文・インシデントレポートを即生成します。
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm">
-            <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
-              <span className="text-blue-600 font-bold">医療特化</span>
-              <span className="text-gray-600">医療用語・法令準拠</span>
+            <div className="flex items-center gap-1.5 bg-white/[0.05] border border-white/15 rounded-full px-4 py-2 shadow-lg">
+              <span className="text-blue-400 font-bold">医療特化</span>
+              <span className="text-white/60">医療用語・法令準拠</span>
             </div>
-            <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
-              <span className="text-blue-600 font-bold">証拠記録</span>
-              <span className="text-gray-600">インシデントレポート生成</span>
+            <div className="flex items-center gap-1.5 bg-white/[0.05] border border-white/15 rounded-full px-4 py-2 shadow-lg">
+              <span className="text-blue-400 font-bold">証拠記録</span>
+              <span className="text-white/60">インシデントレポート生成</span>
             </div>
-            <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm">
-              <span className="text-blue-600 font-bold">運営基準対応</span>
-              <span className="text-gray-600">2026年10月義務化に先行対応</span>
+            <div className="flex items-center gap-1.5 bg-white/[0.05] border border-white/15 rounded-full px-4 py-2 shadow-lg">
+              <span className="text-blue-400 font-bold">運営基準対応</span>
+              <span className="text-white/60">2026年10月義務化に先行対応</span>
             </div>
           </div>
           <Link
             href="/tool"
             aria-label="無料で医療カスハラ対応文を生成する（3回無料）"
-            className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 mb-3 transition-colors hover:scale-105 transition-transform"
+            className="inline-block text-white font-bold text-lg px-8 py-4 rounded-2xl mb-3 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97] min-h-[52px]"
+            style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)', boxShadow: '0 0 25px rgba(37, 99, 235, 0.3), 0 4px 15px rgba(0,0,0,0.15)' }}
           >
             無料で対応文を生成する（3回無料）→
           </Link>
-          <p className="text-sm text-gray-500 mb-2">登録不要・クレジットカード不要でお試しいただけます</p>
+          <p className="text-sm text-white/50 mb-2">登録不要・クレジットカード不要でお試しいただけます</p>
           <button
             onClick={() => openPayjp("standard")}
             aria-label="クリニックプランで始める（月額9,800円）"
-            className="inline-block bg-white text-blue-600 font-bold text-sm px-6 py-2.5 rounded-xl border border-blue-200 hover:bg-blue-50 transition-colors shadow-lg hover:scale-105 transition-transform"
+            className="inline-block bg-white text-blue-400 font-bold text-sm px-6 py-2.5 rounded-xl border border-blue-200 hover:bg-blue-500/10 transition-colors shadow-xl hover:scale-105 transition-transform"
           >
             クリニックプランで始める ¥9,800/月
           </button>
@@ -261,73 +268,73 @@ export default function IryouLP() {
       </section>
 
       {/* 応招義務チェッカー — ヒーローCTA直下 */}
-      <section className="py-14 bg-blue-50 border-t border-blue-100" style={{ scrollMarginTop: 0 }}>
+      <section className="py-14 bg-blue-500/10 border-t border-blue-100" style={{ scrollMarginTop: 0 }}>
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-6">
-            <div className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
+            <div className="inline-block bg-blue-100 text-blue-400 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
               医師法第19条 — 応招義務チェッカー（5問・30秒）
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">あなたの医院は応招義務を正しく理解していますか？</h2>
-            <p className="text-gray-500 text-sm">医師法第19条の応招義務は絶対ではありません。5つの質問に答えて、診療拒否が正当化される可能性を判定します。</p>
+            <h2 className="text-2xl font-bold text-white mb-2">あなたの医院は応招義務を正しく理解していますか？</h2>
+            <p className="text-white/50 text-sm">医師法第19条の応招義務は絶対ではありません。5つの質問に答えて、診療拒否が正当化される可能性を判定します。</p>
           </div>
-          <div className="rounded-2xl p-6 shadow-lg" style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(191,219,254,0.7)' }}>
+          <div className="rounded-2xl p-6 shadow-xl" style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(191,219,254,0.7)' }}>
             <div className="space-y-3 mb-6">
               {OHSHO_QUESTIONS.map((q) => (
-                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors">
+                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-white/10 hover:bg-blue-500/10 cursor-pointer transition-colors">
                   <input
                     type="checkbox"
                     className="mt-1 w-4 h-4 accent-blue-600"
                     checked={!!ohshoChecked[q.id]}
                     onChange={(e) => setOhshoChecked(prev => ({ ...prev, [q.id]: e.target.checked }))}
                   />
-                  <span className="text-sm text-gray-800">{q.text}</span>
+                  <span className="text-sm text-white/90">{q.text}</span>
                 </label>
               ))}
             </div>
             <button
               onClick={checkOhsho}
               aria-label="応招義務拒否の可能性を判定する"
-              className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors mb-4"
+              className="w-full bg-blue-500 text-white font-bold py-3 rounded-xl hover:bg-blue-400 transition-colors mb-4"
             >
               応招義務拒否の可能性を判定する →
             </button>
             {ohshoResult === "high" && (
-              <div className="bg-green-50 border-2 border-green-400 rounded-xl p-5">
+              <div className="bg-green-500/10 border-2 border-green-400 rounded-xl p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="inline-block bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">判定結果</span>
                   <span className="text-green-800 font-bold text-lg">応招義務拒否が正当化される可能性: 高</span>
                 </div>
                 <p className="text-green-700 text-sm mb-4">3項目以上に該当しています。厚労省通知（令和元年12月25日）に基づき、応招義務の例外として診療拒否が認められる可能性が高い状況です。書面による正式な通知を準備することを強く推奨します。</p>
-                <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+                <Link href="/tool" className="inline-block bg-blue-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-400 transition-colors text-sm">
                   この患者への具体的な対応文をAIで生成する →
                 </Link>
               </div>
             )}
             {ohshoResult === "medium" && (
-              <div className="bg-yellow-50 border-2 border-yellow-400 rounded-xl p-5">
+              <div className="bg-yellow-500/10 border-2 border-yellow-400 rounded-xl p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="inline-block bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-full">判定結果</span>
                   <span className="text-yellow-800 font-bold text-lg">応招義務拒否が正当化される可能性: 中</span>
                 </div>
                 <p className="text-yellow-700 text-sm mb-4">一部該当する項目があります。即座の診療拒否は法的リスクが残りますが、段階的な対応（警告→書面通知→記録の蓄積）により、将来の正当な拒否につなげることができます。</p>
-                <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+                <Link href="/tool" className="inline-block bg-blue-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-400 transition-colors text-sm">
                   この患者への具体的な対応文をAIで生成する →
                 </Link>
               </div>
             )}
             {ohshoResult === "low" && (
-              <div className="bg-red-50 border-2 border-red-400 rounded-xl p-5">
+              <div className="bg-red-500/10 border-2 border-red-400 rounded-xl p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="inline-block bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">判定結果</span>
+                  <span className="inline-block bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">判定結果</span>
                   <span className="text-red-800 font-bold text-lg">応招義務拒否が正当化される可能性: 低</span>
                 </div>
                 <p className="text-red-700 text-sm mb-4">該当項目がない場合、応招義務により診療を続ける必要があります。ただし問題行動を記録し段階的な対応を行うことで、将来の正当な拒否につなげることができます。まずは記録から始めましょう。</p>
-                <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+                <Link href="/tool" className="inline-block bg-blue-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-400 transition-colors text-sm">
                   この患者への具体的な対応文をAIで生成する →
                 </Link>
               </div>
             )}
-            <p className="text-xs text-gray-400 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は弁護士・医療法務の専門家にご相談ください。</p>
+            <p className="text-xs text-white/40 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は弁護士・医療法務の専門家にご相談ください。</p>
           </div>
         </div>
       </section>
@@ -335,8 +342,8 @@ export default function IryouLP() {
       {/* ペルソナ共感セクション */}
       <section className="py-14 bg-white">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center mb-2 text-gray-900">こんな状況で困っていませんか？</h2>
-          <p className="text-center text-gray-400 text-sm mb-8">クリニック・病院の院長・医事課・受付スタッフからよく聞く声です</p>
+          <h2 className="text-2xl font-bold text-center mb-2 text-white">こんな状況で困っていませんか？</h2>
+          <p className="text-center text-white/40 text-sm mb-8">クリニック・病院の院長・医事課・受付スタッフからよく聞く声です</p>
           <div className="space-y-3">
             {[
               "「『医療ミスだ、訴えてやる』という患者への対応文を、法的根拠を持って書けない」",
@@ -345,18 +352,18 @@ export default function IryouLP() {
               "「『弁護士に相談する』と脅してくる患者家族への対応を、院長一人で抱えている」",
               "「カスハラを記録したいが、行政・保険会社への報告に使えるレベルの書き方がわからない」",
             ].map((v, i) => (
-              <div key={i} className="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl px-5 py-4">
+              <div key={i} className="flex items-start gap-3 bg-red-500/10 border border-red-100 rounded-xl px-5 py-4">
                 <span className="text-red-400 font-bold text-lg mt-0.5 shrink-0"></span>
-                <p className="text-sm text-gray-700 leading-relaxed">{v}</p>
+                <p className="text-sm text-white/80 leading-relaxed">{v}</p>
               </div>
             ))}
           </div>
           <div className="mt-8 rounded-xl p-6 text-center" style={{ background: 'rgba(239,246,255,0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(191,219,254,0.6)' }}>
-            <p className="text-blue-800 font-bold text-base mb-2">医療クレームAIが、これら全てを解決します</p>
-            <p className="text-sm text-blue-700">状況を入力するだけで、医師法・医療法・厚労省ガイドライン準拠の対応文が15秒で生成されます。</p>
+            <p className="text-blue-300 font-bold text-base mb-2">医療クレームAIが、これら全てを解決します</p>
+            <p className="text-sm text-blue-400">状況を入力するだけで、医師法・医療法・厚労省ガイドライン準拠の対応文が15秒で生成されます。</p>
             <Link
               href="/tool"
-              className="inline-block mt-4 bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm"
+              className="inline-block mt-4 bg-blue-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-400 transition-colors text-sm"
             >
               無料で試してみる（3回・登録不要）→
             </Link>
@@ -364,20 +371,20 @@ export default function IryouLP() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-16">
+      <section className="bg-white/5 py-16">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-center mb-3">医療現場のカスハラは「特殊」です</h2>
-          <p className="text-center text-gray-500 text-sm mb-10">一般企業向けのクレーム対応では対処できない、医療特有の問題があります</p>
+          <p className="text-center text-white/50 text-sm mb-10">一般企業向けのクレーム対応では対処できない、医療特有の問題があります</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {MEDICAL_CASES.map((c) => (
               <div key={c.name} className="rounded-xl p-5" style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(229,231,235,0.8)' }}>
                 <div className="mb-2">{c.icon}</div>
-                <h3 className="font-bold text-gray-900 mb-2">{c.name}</h3>
-                <p className="text-xs text-blue-600 font-medium mb-3">{c.pain}</p>
+                <h3 className="font-bold text-white mb-2">{c.name}</h3>
+                <p className="text-xs text-blue-400 font-medium mb-3">{c.pain}</p>
                 <ul className="space-y-1">
                   {c.examples.map((e) => (
-                    <li key={e} className="text-xs text-gray-500 flex items-center gap-1">
-                      <span className="text-gray-300">▶</span>{e}
+                    <li key={e} className="text-xs text-white/50 flex items-center gap-1">
+                      <span className="text-white/30">▶</span>{e}
                     </li>
                   ))}
                 </ul>
@@ -390,12 +397,12 @@ export default function IryouLP() {
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-center mb-3">医療クレームAIができること</h2>
-          <p className="text-center text-gray-500 text-sm mb-10">医療・医事の法令・ガイドラインを踏まえた対応文を即生成</p>
+          <p className="text-center text-white/50 text-sm mb-10">医療・医事の法令・ガイドラインを踏まえた対応文を即生成</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                 ),
@@ -404,7 +411,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                   </svg>
                 ),
@@ -413,7 +420,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 ),
@@ -422,7 +429,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
                 ),
@@ -430,10 +437,10 @@ export default function IryouLP() {
                 desc: "医療機関名義の公式文書として使える書面通知文を生成。警告・診療お断り・警察連携への言及を含む段階的対応文をそのまま活用できます。",
               },
             ].map((f) => (
-              <div key={f.title} className="rounded-xl p-6 shadow-sm" style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(229,231,235,0.8)' }}>
+              <div key={f.title} className="rounded-xl p-6 shadow-lg" style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(229,231,235,0.8)' }}>
                 <div className="mb-2">{f.icon}</div>
-                <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
-                <p className="text-sm text-gray-500">{f.desc}</p>
+                <h3 className="font-bold text-white mb-2">{f.title}</h3>
+                <p className="text-sm text-white/50">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -452,25 +459,25 @@ export default function IryouLP() {
             ].map((v, i) => (
               <div key={i} className="rounded-xl p-5" style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(229,231,235,0.7)' }}>
                 <div className="flex text-yellow-400 text-sm mb-3">{""}</div>
-                <p className="text-sm text-gray-700 mb-3 leading-relaxed">{v.text}</p>
-                <p className="text-xs text-gray-400">{v.role}</p>
+                <p className="text-sm text-white/80 mb-3 leading-relaxed">{v.text}</p>
+                <p className="text-xs text-white/40">{v.role}</p>
               </div>
             ))}
           </div>
-          <p className="text-xs text-gray-400 text-center mt-4">※個人の感想です。効果には個人差があります。</p>
+          <p className="text-xs text-white/40 text-center mt-4">※個人の感想です。効果には個人差があります。</p>
         </div>
       </section>
 
       {/* 対応医療機関モック */}
-      <section className="py-14 bg-white border-t border-gray-100">
+      <section className="py-14 bg-white border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center mb-2 text-gray-900">こんな医療機関に選ばれています</h2>
-          <p className="text-center text-gray-400 text-sm mb-8">規模・診療科を問わず、医療現場のカスハラ対策に活用されています</p>
+          <h2 className="text-2xl font-bold text-center mb-2 text-white">こんな医療機関に選ばれています</h2>
+          <p className="text-center text-white/40 text-sm mb-8">規模・診療科を問わず、医療現場のカスハラ対策に活用されています</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-600 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 ),
@@ -478,7 +485,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-600 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 ),
@@ -486,7 +493,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-600 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                   </svg>
                 ),
@@ -494,7 +501,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-600 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-blue-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 ),
@@ -503,8 +510,8 @@ export default function IryouLP() {
             ].map((org) => (
               <div key={org.name} className="rounded-xl p-5 text-center" style={{ background: 'rgba(239,246,255,0.82)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(191,219,254,0.7)' }}>
                 <div className="mb-2">{org.icon}</div>
-                <p className="font-bold text-gray-900 text-sm mb-1">{org.name}</p>
-                <p className="text-xs text-blue-600">{org.detail}</p>
+                <p className="font-bold text-white text-sm mb-1">{org.name}</p>
+                <p className="text-xs text-blue-400">{org.detail}</p>
               </div>
             ))}
           </div>
@@ -512,14 +519,14 @@ export default function IryouLP() {
       </section>
 
       {/* クレーム種別カバレッジ表 */}
-      <section className="py-14 bg-gray-50">
+      <section className="py-14 bg-white/5">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center mb-2 text-gray-900">対応できるクレーム種別</h2>
-          <p className="text-center text-gray-400 text-sm mb-8">医療現場で発生する主要クレームを網羅的にカバー</p>
+          <h2 className="text-2xl font-bold text-center mb-2 text-white">対応できるクレーム種別</h2>
+          <p className="text-center text-white/40 text-sm mb-8">医療現場で発生する主要クレームを網羅的にカバー</p>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+            <table className="w-full text-sm backdrop-blur-md bg-white/[0.07] border border-white/15 rounded-xl border border-white/15 overflow-hidden shadow-lg">
               <thead>
-                <tr className="bg-blue-600 text-white">
+                <tr className="bg-blue-500 text-white">
                   <th className="text-left px-5 py-3 font-semibold">クレーム種別</th>
                   <th className="text-center px-5 py-3 font-semibold">対応</th>
                 </tr>
@@ -533,9 +540,9 @@ export default function IryouLP() {
                   { type: "費用・保険請求", support: "OK" },
                   { type: "セクハラ・プライバシー", support: "OK" },
                 ].map((row, i) => (
-                  <tr key={row.type} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                    <td className="px-5 py-3 text-gray-700 border-t border-gray-100">{row.type}</td>
-                    <td className="px-5 py-3 text-center text-green-600 font-medium border-t border-gray-100">{row.support}</td>
+                  <tr key={row.type} className={i % 2 === 0 ? "bg-white" : "bg-white/5"}>
+                    <td className="px-5 py-3 text-white/80 border-t border-white/10">{row.type}</td>
+                    <td className="px-5 py-3 text-center text-green-600 font-medium border-t border-white/10">{row.support}</td>
                   </tr>
                 ))}
               </tbody>
@@ -545,14 +552,14 @@ export default function IryouLP() {
       </section>
 
       {/* 医療訴訟費用比較セクション */}
-      <section className="py-14 bg-red-50 border-t border-red-100">
+      <section className="py-14 bg-red-500/10 border-t border-red-100">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
             <div className="inline-block bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-red-200">
               【注意】放置すると高額な費用リスク
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">弁護士費用 vs 医療クレームAI</h2>
-            <p className="text-gray-500 text-sm">医療過誤クレーム・訴訟対応に実際にかかるコストと比較してください</p>
+            <h2 className="text-2xl font-bold text-white mb-2">弁護士費用 vs 医療クレームAI</h2>
+            <p className="text-white/50 text-sm">医療過誤クレーム・訴訟対応に実際にかかるコストと比較してください</p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
             <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.90)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '2px solid rgba(252,165,165,0.7)' }}>
@@ -566,16 +573,16 @@ export default function IryouLP() {
                   { label: "訴訟全体の総費用", cost: "¥50万〜500万+" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center justify-between text-sm border-b border-red-50 pb-2 last:border-0">
-                    <span className="text-gray-600">{item.label}</span>
+                    <span className="text-white/60">{item.label}</span>
                     <span className="font-bold text-red-600">{item.cost}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-gray-400 mt-3 text-center">※ 医療過誤専門事務所の標準的相場</p>
+              <p className="text-xs text-white/40 mt-3 text-center">※ 医療過誤専門事務所の標準的相場</p>
             </div>
             <div className="bg-white border-2 border-blue-500 rounded-2xl p-6 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">初動対応を自動化</div>
-              <p className="text-sm font-bold text-blue-600 mb-4 text-center">OK 医療クレームAIの場合</p>
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">初動対応を自動化</div>
+              <p className="text-sm font-bold text-blue-400 mb-4 text-center">OK 医療クレームAIの場合</p>
               <div className="space-y-3">
                 {[
                   { label: "初動スクリプト生成", cost: "無料（3回）" },
@@ -585,30 +592,30 @@ export default function IryouLP() {
                   { label: "弁護士相談が必要なケースを判定", cost: "自動判定" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center justify-between text-sm border-b border-blue-50 pb-2 last:border-0">
-                    <span className="text-gray-600">{item.label}</span>
-                    <span className="font-bold text-blue-600">{item.cost}</span>
+                    <span className="text-white/60">{item.label}</span>
+                    <span className="font-bold text-blue-400">{item.cost}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-4 bg-blue-50 rounded-xl p-3 text-center">
-                <p className="text-xs text-blue-800 font-bold">初動対応をAIが担うことで<br />弁護士費用を最小化できます</p>
+              <div className="mt-4 bg-blue-500/10 rounded-xl p-3 text-center">
+                <p className="text-xs text-blue-300 font-bold">初動対応をAIが担うことで<br />弁護士費用を最小化できます</p>
               </div>
             </div>
           </div>
-          <p className="text-center text-xs text-gray-400 mt-4">※ AIは法的助言を提供するものではありません。訴訟・脅迫・傷害リスクのあるケースは弁護士への相談を推奨します。</p>
+          <p className="text-center text-xs text-white/40 mt-4">※ AIは法的助言を提供するものではありません。訴訟・脅迫・傷害リスクのあるケースは弁護士への相談を推奨します。</p>
         </div>
       </section>
 
       {/* 医療法・患者権利法準拠バッジ（条文明示強化版） */}
-      <section className="py-10 bg-white border-t border-gray-100">
+      <section className="py-10 bg-white border-t border-white/10">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-xl font-bold text-center mb-2 text-gray-900">信頼の法的根拠</h2>
-          <p className="text-center text-gray-400 text-sm mb-6">対応文生成の根拠となる法令・ガイドラインに基づいています</p>
+          <h2 className="text-xl font-bold text-center mb-2 text-white">信頼の法的根拠</h2>
+          <p className="text-center text-white/40 text-sm mb-6">対応文生成の根拠となる法令・ガイドラインに基づいています</p>
           <div className="flex flex-wrap justify-center gap-3 mb-6">
             {[
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
                   </svg>
                 ),
@@ -616,7 +623,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 ),
@@ -624,7 +631,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                   </svg>
                 ),
@@ -632,7 +639,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 ),
@@ -640,7 +647,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 ),
@@ -648,16 +655,16 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                 ),
                 label: "刑法第208条", sub: "暴行・脅迫への法的対応",
               },
             ].map((badge) => (
-              <div key={badge.label} className="inline-flex flex-col items-center gap-0.5 bg-blue-50 border border-blue-200 rounded-xl px-4 py-2.5 text-center shadow-sm min-w-[130px]">
+              <div key={badge.label} className="inline-flex flex-col items-center gap-0.5 bg-blue-500/10 border border-blue-200 rounded-xl px-4 py-2.5 text-center shadow-lg min-w-[130px]">
                 {badge.icon}
-                <span className="text-xs font-bold text-blue-800">{badge.label}</span>
+                <span className="text-xs font-bold text-blue-300">{badge.label}</span>
                 <span className="text-xs text-blue-500">{badge.sub}</span>
               </div>
             ))}
@@ -665,16 +672,16 @@ export default function IryouLP() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-16">
+      <section className="bg-white/5 py-16">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-center mb-3">料金プラン</h2>
-          <p className="text-center text-gray-500 text-sm mb-10">クリニック・病院の規模に合わせた2プラン</p>
+          <p className="text-center text-white/50 text-sm mb-10">クリニック・病院の規模に合わせた2プラン</p>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="border-2 border-gray-200 rounded-2xl p-8 bg-white">
-              <p className="text-gray-500 font-bold mb-2">スタータープラン</p>
-              <p className="text-4xl font-black text-gray-900 mb-1">¥9,800<span className="text-base font-normal text-gray-500">/月</span></p>
-              <p className="text-gray-400 text-sm mb-6">1事業所向け</p>
-              <ul className="space-y-3 text-sm text-gray-700 mb-8">
+            <div className="border-2 border-white/15 rounded-2xl p-8 bg-white">
+              <p className="text-white/50 font-bold mb-2">スタータープラン</p>
+              <p className="text-4xl font-black text-white mb-1">¥9,800<span className="text-base font-normal text-white/50">/月</span></p>
+              <p className="text-white/40 text-sm mb-6">1事業所向け</p>
+              <ul className="space-y-3 text-sm text-white/80 mb-8">
                 {["カスハラ対応文 月100件生成", "インシデントレポート生成", "医療特化プロンプト対応", "いつでも解約可能"].map((f) => (
                   <li key={f} className="flex items-center gap-2"><span className="text-green-500 font-bold"></span>{f}</li>
                 ))}
@@ -682,17 +689,17 @@ export default function IryouLP() {
               <button
                 onClick={() => setShowPayjp(true)}
                 aria-label="スタータープランに申し込む"
-                className="w-full border-2 border-blue-600 text-blue-600 font-bold py-3 rounded-xl hover:bg-blue-50 transition-colors"
+                className="w-full border-2 border-blue-600 text-blue-400 font-bold py-3 rounded-xl hover:bg-blue-500/10 transition-colors"
               >
                 申し込む
               </button>
             </div>
-            <div className="border-2 border-blue-600 rounded-2xl p-8 bg-blue-50 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full">複数事業所向け</div>
-              <p className="text-blue-700 font-bold mb-2">プロプラン</p>
-              <p className="text-4xl font-black text-gray-900 mb-1">要相談</p>
-              <p className="text-gray-400 text-sm mb-6">複数事業所・法人一括契約</p>
-              <ul className="space-y-3 text-sm text-gray-700 mb-8">
+            <div className="border-2 border-blue-600 rounded-2xl p-8 bg-blue-500/10 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-bold px-4 py-1 rounded-full">複数事業所向け</div>
+              <p className="text-blue-400 font-bold mb-2">プロプラン</p>
+              <p className="text-4xl font-black text-white mb-1">要相談</p>
+              <p className="text-white/40 text-sm mb-6">複数事業所・法人一括契約</p>
+              <ul className="space-y-3 text-sm text-white/80 mb-8">
                 {["スタータープラン全機能", "複数事業所の一括管理", "スタッフ研修用マニュアル生成", "優先サポート・訪問研修相談可"].map((f) => (
                   <li key={f} className="flex items-center gap-2"><span className="text-green-500 font-bold"></span>{f}</li>
                 ))}
@@ -702,7 +709,7 @@ export default function IryouLP() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Xにてプロプランのお問い合わせ（外部リンク）"
-                className="block w-full text-center bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors"
+                className="block w-full text-center bg-blue-500 text-white font-bold py-3 rounded-xl hover:bg-blue-400 transition-colors"
               >
                 Xにてお問い合わせ →
               </a>
@@ -718,7 +725,7 @@ export default function IryouLP() {
           <p className="text-blue-200 text-sm mb-6">「また暴言があった」「また不当な医療ミス主張が来た」——その度に院長一人で抱えなくていい。<br className="hidden md:block" />AIが医師法・医療法準拠の毅然とした対応文とインシデントレポートを即生成します。</p>
           <Link
             href="/tool"
-            className="inline-block bg-white text-blue-700 font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-50 shadow-lg transition-colors mb-3 w-full sm:w-auto"
+            className="inline-block bg-white text-blue-400 font-bold text-lg px-8 py-4 rounded-xl hover:bg-blue-500/10 shadow-xl transition-colors mb-3 w-full sm:w-auto"
           >
             無料で3回試す（登録不要）→
           </Link>
@@ -739,9 +746,9 @@ export default function IryouLP() {
         </div>
       </section>
 
-      <section className="py-12 bg-gray-50">
+      <section className="py-12 bg-white/[0.02]/5">
         <div className="max-w-2xl mx-auto px-4">
-          <h2 className="text-xl font-bold text-center text-gray-800 mb-6">よくある質問</h2>
+          <h2 className="text-xl font-bold text-center text-white/90 mb-6">よくある質問</h2>
           <div className="space-y-4">
             {[
               { q: "どんなクレーム・カスハラに対応していますか？", a: "怒鳴り・長時間拘束・治療への不当要求・SNS脅迫・診察拒否圧力など、医療現場で実際に起きる事例に広く対応しています。" },
@@ -749,9 +756,9 @@ export default function IryouLP() {
               { q: "出力をそのまま使えますか？", a: "初動スクリプト・記録テンプレートはそのままご活用いただけます。警察通報・弁護士相談が必要な場合はAIが判定して誘導します。" },
               { q: "料金はいくらですか？", a: "月額¥9,800（プレミアム）で全機能が使えます。病院・クリニック複数スタッフでの利用はX @levona_designへお問い合わせください。" },
             ].map((faq, i) => (
-              <div key={i} className="bg-white rounded-xl p-5 shadow-sm">
-                <p className="font-semibold text-blue-800 mb-2 text-sm">Q. {faq.q}</p>
-                <p className="text-sm text-gray-600">A. {faq.a}</p>
+              <div key={i} className="backdrop-blur-md bg-white/[0.07] border border-white/15 rounded-xl p-5 shadow-lg">
+                <p className="font-semibold text-blue-300 mb-2 text-sm">Q. {faq.q}</p>
+                <p className="text-sm text-white/60">A. {faq.a}</p>
               </div>
             ))}
           </div>
@@ -759,47 +766,47 @@ export default function IryouLP() {
       </section>
 
       {/* カスハラ判定チェッカー */}
-      <section className="py-14 bg-red-50 border-t border-red-100">
+      <section className="py-14 bg-red-500/10 border-t border-red-100">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-6">
             <div className="inline-block bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-red-200">
               カスハラ度チェッカー — 5問・30秒
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">これってカスハラ？今すぐ判定</h2>
-            <p className="text-gray-500 text-sm">入力不要・選択式。5つの質問に答えるだけでカスハラ度スコアを表示します。</p>
+            <h2 className="text-2xl font-bold text-white mb-2">これってカスハラ？今すぐ判定</h2>
+            <p className="text-white/50 text-sm">入力不要・選択式。5つの質問に答えるだけでカスハラ度スコアを表示します。</p>
           </div>
-          <div className="bg-white border border-red-200 rounded-2xl p-6 shadow-sm">
+          <div className="bg-white border border-red-200 rounded-2xl p-6 shadow-lg">
             <div className="space-y-3 mb-6">
               {KASUHARA_CHECKER_QUESTIONS.map((q) => (
-                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-red-50 cursor-pointer transition-colors">
+                <label key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-white/10 hover:bg-red-500/10 cursor-pointer transition-colors">
                   <input
                     type="checkbox"
                     className="mt-1 w-4 h-4 accent-red-600"
                     checked={!!kasuharaChecked[q.id]}
                     onChange={(e) => setKasuharaChecked(prev => ({ ...prev, [q.id]: e.target.checked }))}
                   />
-                  <span className="text-sm text-gray-800">{q.text}</span>
+                  <span className="text-sm text-white/90">{q.text}</span>
                 </label>
               ))}
             </div>
             <button
               onClick={checkKasuhara}
               aria-label="カスハラ度を判定する"
-              className="w-full bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition-colors mb-4"
+              className="w-full bg-red-500 text-white font-bold py-3 rounded-xl hover:bg-red-400 transition-colors mb-4"
             >
               カスハラ度を判定する →
             </button>
             {kasuharaResult === "high" && (
-              <div className="bg-red-50 border-2 border-red-400 rounded-xl p-4">
+              <div className="bg-red-500/10 border-2 border-red-400 rounded-xl p-4">
                 <p className="text-red-800 font-bold mb-1">【警告】カスハラ度: 高（3項目以上該当）</p>
                 <p className="text-red-700 text-sm mb-3">複数の問題行動が確認されています。厚労省ガイドラインに基づき、書面による警告・インシデントレポートの作成を強く推奨します。悪化する前に記録を始めてください。</p>
-                <Link href="/tool" className="inline-block bg-red-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-red-700 transition-colors text-sm">
+                <Link href="/tool" className="inline-block bg-red-500 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-red-400 transition-colors text-sm">
                   今すぐ対応文・インシデントレポートを生成する →
                 </Link>
               </div>
             )}
             {kasuharaResult === "medium" && (
-              <div className="bg-orange-50 border-2 border-orange-400 rounded-xl p-4">
+              <div className="bg-orange-500/10 border-2 border-orange-400 rounded-xl p-4">
                 <p className="text-orange-800 font-bold mb-1">【注意】カスハラ度: 中（1〜2項目該当）</p>
                 <p className="text-orange-700 text-sm mb-3">カスハラの兆候があります。記録を残し始めることを推奨します。早い段階での対応文・書面警告が悪化を防ぎます。</p>
                 <Link href="/tool" className="inline-block bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-orange-700 transition-colors text-sm">
@@ -808,45 +815,45 @@ export default function IryouLP() {
               </div>
             )}
             {kasuharaResult === "none" && (
-              <div className="bg-green-50 border border-green-300 rounded-xl p-4">
+              <div className="bg-green-500/10 border border-green-300 rounded-xl p-4">
                 <p className="text-green-800 font-bold mb-1">現状カスハラ該当なし</p>
                 <p className="text-green-700 text-sm">現時点では該当項目がありません。ただし正当な苦情・改善要望には丁寧な対応を継続してください。</p>
               </div>
             )}
-            <p className="text-xs text-gray-400 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は管理者・法務担当者にご確認ください。</p>
+            <p className="text-xs text-white/40 mt-3 text-center">※本チェッカーはAIによる参考判定です。実際の判断は管理者・法務担当者にご確認ください。</p>
           </div>
         </div>
       </section>
 
       {/* 診療科別対応事例 */}
-      <section className="py-14 bg-white border-t border-gray-100">
+      <section className="py-14 bg-white border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">診療科別 よくある対応事例</h2>
-            <p className="text-gray-500 text-sm">内科・外科・精神科それぞれの医療現場で実際に起きるカスハラ事例と、AIによる対応アプローチを紹介します</p>
+            <h2 className="text-2xl font-bold text-white mb-2">診療科別 よくある対応事例</h2>
+            <p className="text-white/50 text-sm">内科・外科・精神科それぞれの医療現場で実際に起きるカスハラ事例と、AIによる対応アプローチを紹介します</p>
           </div>
           <div className="space-y-4">
             {DEPT_CASES.map((dept) => (
-              <div key={dept.dept} className="border border-gray-200 rounded-xl overflow-hidden">
+              <div key={dept.dept} className="border border-white/15 rounded-xl overflow-hidden">
                 <button
                   aria-label={`${dept.dept}の対応事例を${openDept === dept.dept ? "閉じる" : "開く"}`}
                   aria-expanded={openDept === dept.dept}
-                  className="w-full flex items-center justify-between px-6 py-4 bg-white hover:bg-blue-50 transition-colors text-left"
+                  className="w-full flex items-center justify-between px-6 py-4 bg-white hover:bg-blue-500/10 transition-colors text-left"
                   onClick={() => setOpenDept(openDept === dept.dept ? null : dept.dept)}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-1 rounded">{dept.icon}</span>
-                    <span className="font-bold text-gray-900">{dept.dept} — よくある事例</span>
-                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">{dept.cases.length}件</span>
+                    <span className="text-xs font-bold text-blue-400 bg-blue-100 px-2 py-1 rounded">{dept.icon}</span>
+                    <span className="font-bold text-white">{dept.dept} — よくある事例</span>
+                    <span className="text-xs bg-blue-100 text-blue-400 px-2 py-0.5 rounded-full font-medium">{dept.cases.length}件</span>
                   </div>
-                  <span className="text-gray-400 text-lg">{openDept === dept.dept ? "▲" : "▼"}</span>
+                  <span className="text-white/40 text-lg">{openDept === dept.dept ? "▲" : "▼"}</span>
                 </button>
                 {openDept === dept.dept && (
-                  <div className="border-t border-gray-100 divide-y divide-gray-100">
+                  <div className="border-t border-white/10 divide-y divide-gray-100">
                     {dept.cases.map((c, i) => (
-                      <div key={i} className="px-6 py-4 bg-gray-50">
-                        <p className="font-semibold text-blue-800 text-sm mb-2">{c.title}</p>
-                        <p className="text-sm text-gray-700 leading-relaxed">{c.detail}</p>
+                      <div key={i} className="px-6 py-4 bg-white/5">
+                        <p className="font-semibold text-blue-300 text-sm mb-2">{c.title}</p>
+                        <p className="text-sm text-white/80 leading-relaxed">{c.detail}</p>
                       </div>
                     ))}
                   </div>
@@ -855,7 +862,7 @@ export default function IryouLP() {
             ))}
           </div>
           <div className="mt-6 text-center">
-            <Link href="/tool" className="inline-block bg-blue-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+            <Link href="/tool" className="inline-block bg-blue-500 text-white font-bold px-8 py-3 rounded-xl hover:bg-blue-400 transition-colors text-sm">
               あなたのクレームに対応する文書をAIで生成する →
             </Link>
           </div>
@@ -873,7 +880,7 @@ export default function IryouLP() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="弁護士ドットコムで無料相談する（外部リンク）"
-            className="inline-flex items-center gap-2 bg-white text-indigo-700 font-bold px-8 py-3 rounded-xl hover:bg-indigo-50 transition-colors shadow-lg"
+            className="inline-flex items-center gap-2 bg-white text-indigo-400 font-bold px-8 py-3 rounded-xl hover:bg-indigo-500/10 transition-colors shadow-xl"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
@@ -885,18 +892,18 @@ export default function IryouLP() {
       </section>
 
       {/* 医療クレームAIだけができること — 差別化セクション */}
-      <section className="py-14 bg-white border-t border-gray-100">
+      <section className="py-14 bg-white border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-8">
-            <div className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3">医療特化の強み</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">医療クレームAIが医師・看護師に選ばれる理由</h2>
-            <p className="text-sm text-gray-500">汎用クレーム対応ツールにはない、医療現場専用の3つの機能</p>
+            <div className="inline-block bg-blue-100 text-blue-400 text-xs font-bold px-3 py-1 rounded-full mb-3">医療特化の強み</div>
+            <h2 className="text-2xl font-bold text-white mb-2">医療クレームAIが医師・看護師に選ばれる理由</h2>
+            <p className="text-sm text-white/50">汎用クレーム対応ツールにはない、医療現場専用の3つの機能</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5 mb-8">
             {[
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 ),
@@ -906,7 +913,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
                   </svg>
                 ),
@@ -916,7 +923,7 @@ export default function IryouLP() {
               },
               {
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                   </svg>
                 ),
@@ -925,20 +932,20 @@ export default function IryouLP() {
                 badge: "12診療科対応",
               },
             ].map(item => (
-              <div key={item.title} className="bg-blue-50 rounded-2xl p-5 border border-blue-200">
+              <div key={item.title} className="bg-blue-500/10 rounded-2xl p-5 border border-blue-200">
                 <div className="flex items-center gap-2 mb-3">
                   {item.icon}
                   <span className="text-xs bg-blue-700 text-white font-bold px-2 py-0.5 rounded-full">{item.badge}</span>
                 </div>
                 <h3 className="font-bold text-blue-900 mb-2 text-sm">{item.title}</h3>
-                <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
+                <p className="text-xs text-white/60 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
           <div className="bg-blue-700 text-white rounded-2xl p-5 text-center max-w-2xl mx-auto">
             <p className="font-bold mb-1">弁護士相談（¥1万〜）より速く、今すぐ対応文が生成できます</p>
             <p className="text-blue-100 text-sm mb-4">クリニックプラン¥9,800/月 — 院長一人で抱えていた医療カスハラ対応をAIがサポート</p>
-            <Link href="/tool" className="inline-block bg-white text-blue-700 font-bold px-8 py-3 rounded-xl hover:bg-blue-50 text-sm">
+            <Link href="/tool" className="inline-block bg-white text-blue-400 font-bold px-8 py-3 rounded-xl hover:bg-blue-500/10 text-sm">
               無料で3回試してみる →
             </Link>
           </div>
@@ -946,27 +953,27 @@ export default function IryouLP() {
       </section>
 
       {/* 医療カスハラガイドリンク（SEO内部リンク） */}
-      <section className="py-10 px-4 bg-blue-50 border-t border-blue-100">
+      <section className="py-10 px-4 bg-blue-500/10 border-t border-blue-100">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs font-bold text-blue-700 tracking-widest uppercase mb-2">医療カスハラ対策情報</p>
-          <h2 className="text-xl font-bold text-gray-900 mb-4">医療カスハラ対策コンテンツ</h2>
+          <p className="text-xs font-bold text-blue-400 tracking-widest uppercase mb-2">医療カスハラ対策情報</p>
+          <h2 className="text-xl font-bold text-white mb-4">医療カスハラ対策コンテンツ</h2>
           <div className="grid sm:grid-cols-2 gap-4 mb-2">
             <div className="bg-white border border-blue-200 rounded-xl p-5 text-center">
-              <p className="text-blue-600 font-bold text-sm mb-2">医療カスハラ対策完全ガイド</p>
-              <p className="text-gray-500 text-xs mb-3">応招義務の正しい理解・医療過誤クレーム対応・2026年義務化まで解説</p>
+              <p className="text-blue-400 font-bold text-sm mb-2">医療カスハラ対策完全ガイド</p>
+              <p className="text-white/50 text-xs mb-3">応招義務の正しい理解・医療過誤クレーム対応・2026年義務化まで解説</p>
               <Link
                 href="/blog/iryou-kasuhara"
-                className="inline-block bg-blue-600 text-white font-bold px-5 py-2 rounded-xl hover:bg-blue-700 transition-colors text-sm"
+                className="inline-block bg-blue-500 text-white font-bold px-5 py-2 rounded-xl hover:bg-blue-400 transition-colors text-sm"
               >
                 ガイドを読む →
               </Link>
             </div>
             <div className="bg-white border border-red-200 rounded-xl p-5 text-center">
               <p className="text-red-600 font-bold text-sm mb-2">医療カスハラ事例集5選</p>
-              <p className="text-gray-500 text-xs mb-3">実際に発生したカスハラ事例と法的根拠に基づく対応方法を解説</p>
+              <p className="text-white/50 text-xs mb-3">実際に発生したカスハラ事例と法的根拠に基づく対応方法を解説</p>
               <Link
                 href="/blog/cases"
-                className="inline-block bg-red-600 text-white font-bold px-5 py-2 rounded-xl hover:bg-red-700 transition-colors text-sm"
+                className="inline-block bg-red-500 text-white font-bold px-5 py-2 rounded-xl hover:bg-red-400 transition-colors text-sm"
               >
                 事例集を読む →
               </Link>
@@ -1006,14 +1013,14 @@ export default function IryouLP() {
         </div>
       </section>
 
-      <footer className="border-t py-6 text-center text-xs text-gray-400">
+      <footer className="border-t py-6 text-center text-xs text-white/40">
         <div className="space-x-4 mb-2">
           <Link href="/legal" aria-label="特定商取引法に基づく表記" className="hover:underline">特定商取引法に基づく表記</Link>
           <Link href="/privacy" aria-label="プライバシーポリシー" className="hover:underline">プライバシーポリシー</Link>
           <Link href="/terms" aria-label="利用規約" className="hover:underline">利用規約</Link>
         </div>
         <p>医療クレームAI — ポッコリラボ</p>
-        <p className="mt-1 text-gray-300">本AIの出力は参考情報です。実際の対応は管理者・法的専門家にご相談ください。</p>
+        <p className="mt-1 text-white/30">本AIの出力は参考情報です。実際の対応は管理者・法的専門家にご相談ください。</p>
       </footer>
     </main>
   );
