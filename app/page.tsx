@@ -8,6 +8,7 @@ import { THEMES } from "@/lib/design-system-themes";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdBanner } from "@/components/AdBanner";
 import { CrossSell } from "@/components/CrossSell";
+import { TrustBadge } from "@/components/TrustBadge";
 const T = THEMES.legal;
 
 // カスハラ判定チェッカー
@@ -285,6 +286,7 @@ export default function IryouLP() {
             </div>
           </div>
           <div className="max-w-xs mx-auto mb-4"><UsageCounter /></div>
+          <div className="mb-4"><TrustBadge /></div>
           <Link
             href="/tool"
             aria-label="無料で医療カスハラ対応文を生成する（3回無料）"
