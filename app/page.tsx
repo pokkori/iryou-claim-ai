@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import KomojuButton from "@/components/KomojuButton";
+import { StreakBanner } from "@/components/StreakBanner";
+import { UsageCounter } from "@/components/UsageCounter";
 import { THEMES } from "@/lib/design-system-themes";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdBanner } from "@/components/AdBanner";
@@ -244,6 +246,8 @@ export default function IryouLP() {
         </div>
       </nav>
 
+      <StreakBanner />
+
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-sky-50 pointer-events-none" />
         <div className="relative max-w-4xl mx-auto px-6 py-20 text-center">
@@ -279,6 +283,7 @@ export default function IryouLP() {
               <span className="text-white/60">2026年10月義務化に先行対応</span>
             </div>
           </div>
+          <div className="max-w-xs mx-auto mb-4"><UsageCounter /></div>
           <Link
             href="/tool"
             aria-label="無料で医療カスハラ対応文を生成する（3回無料）"

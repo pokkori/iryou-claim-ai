@@ -3,6 +3,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAdScript } from "@/components/GoogleAdScript";
 import "./globals.css";
+import { InstallPrompt } from "@/components/InstallPrompt";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className={`${notoSansJP.className} antialiased`}>
         {children}
+        <InstallPrompt />
         <Analytics />
         <GoogleAdScript />
       </body>
