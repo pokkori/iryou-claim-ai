@@ -7,6 +7,7 @@ import { UsageCounter } from "@/components/UsageCounter";
 import { THEMES } from "@/lib/design-system-themes";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdBanner } from "@/components/AdBanner";
+import { CrossSell } from "@/components/CrossSell";
 const T = THEMES.legal;
 
 // カスハラ判定チェッカー
@@ -290,8 +291,9 @@ export default function IryouLP() {
             className="inline-block text-white font-bold text-lg px-8 py-4 rounded-2xl mb-3 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97] min-h-[52px]"
             style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)', boxShadow: '0 0 25px rgba(37, 99, 235, 0.3), 0 4px 15px rgba(0,0,0,0.15)' }}
           >
-            無料で対応文を生成する（3回無料）→
+            無料でAI対応文を生成 →
           </Link>
+          <p className="text-xs opacity-60 mt-2">※登録不要・30秒で完成</p>
           <p className="text-sm text-white/50 mb-2">登録不要・クレジットカード不要でお試しいただけます</p>
           <button
             onClick={() => openPayjp("standard")}
@@ -1032,6 +1034,8 @@ export default function IryouLP() {
           </p>
         </div>
       </section>
+
+      <CrossSell currentService="医療クレームAI" />
 
       <footer className="border-t py-6 text-center text-xs text-white/40">
         <div className="space-x-4 mb-2">
