@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { GoogleAdScript } from "@/components/GoogleAdScript";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${notoSansJP.className} antialiased`}>
         {children}
         <Analytics />
+        <GoogleAdScript />
       </body>
     </html>
   );
