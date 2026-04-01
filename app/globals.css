@@ -51,6 +51,20 @@ body {
 .tabular-nums { font-variant-numeric: tabular-nums; }
 
 /* ============================================================
+   OrbBackground -- floating ambient orbs
+   ============================================================ */
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-40px) scale(1.05); }
+  66% { transform: translate(-20px,20px) scale(0.95); }
+}
+.orb-container { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:0.3; animation:orbFloat 12s ease-in-out infinite; }
+.orb-1 { width:600px;height:600px; background:radial-gradient(circle,#6366f1 0%,transparent 70%); top:-200px;left:-200px; animation-delay:0s; }
+.orb-2 { width:500px;height:500px; background:radial-gradient(circle,#8b5cf6 0%,transparent 70%); bottom:-150px;right:-100px; animation-delay:-4s; }
+.orb-3 { width:400px;height:400px; background:radial-gradient(circle,#06b6d4 0%,transparent 70%); top:50%;left:40%; animation-delay:-8s; }
+
+/* ============================================================
    Design System 2026 -- appended
    ============================================================ */
 

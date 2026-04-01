@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import KomojuButton from "@/components/KomojuButton";
+import { GlowButton } from "@/components/GlowButton";
 import { track } from '@vercel/analytics';
 import { updateStreak, loadStreak, getStreakMilestoneMessage, type StreakData } from "@/lib/streak";
 
@@ -537,14 +538,14 @@ export default function IryouTool() {
             </div>
           )}
 
-          <button
+          <GlowButton
             onClick={handleGenerate}
             disabled={loading || !situation.trim()}
-            className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors min-h-[44px]"
             aria-label="入力した状況をもとに対応文をAIで生成する"
+            variant="primary"
           >
             {loading ? "生成中..." : "対応文を生成する"}
-          </button>
+          </GlowButton>
         </div>
 
         {/* 達成感バナー */}
