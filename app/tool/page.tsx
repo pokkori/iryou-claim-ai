@@ -336,7 +336,7 @@ export default function IryouTool() {
           ? "アクセスが集中しています。しばらくお待ちください。"
           : msg.includes("529") || msg.toLowerCase().includes("overload")
           ? "AIサーバーが混雑しています。少し待ってから再試行してください。"
-          : "通信エラーが発生しました。再試行してください。"
+          : "少し時間をおいてもう一度お試しください。"
       );
     } finally {
       setLoading(false);
@@ -557,7 +557,7 @@ export default function IryouTool() {
             aria-label="入力した状況をもとに対応文をAIで生成する"
             variant="primary"
           >
-            {loading ? "生成中..." : "対応文を生成する"}
+            {loading ? "生成中..." : "無料で対応文を生成する"}
           </GlowButton>
         </div>
 
