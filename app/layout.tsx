@@ -15,8 +15,8 @@ const notoSansJP = Noto_Sans_JP({
 
 
 const SITE_URL = "https://iryou-claim-ai.vercel.app";
-const TITLE = "医療クレームAI｜患者・家族からのカスハラ対応文を15秒で生成｜クリニック・病院向け";
-const DESC = "患者・家族からの暴言・過剰要求・医療過誤クレームに。改正労働施策総合推進法（2026年10月義務化）準拠の対応文・断り文・インシデントレポートをAIが即生成。クリニック向け¥9,800/月。";
+const TITLE = "医療クレームAI | クリニック・病院のカスハラ対応文を15秒で生成";
+const DESC = "2026年10月カスハラ対策義務化対応。医療クレーム・カスタマーハラスメントへの対応文・インシデントレポートをAIが即時生成。クリニック・病院・歯科・介護施設向け。厚労省ガイドライン準拠。クリニックプラン¥9,800/月。";
 
 export const metadata: Metadata = {
   title: TITLE,

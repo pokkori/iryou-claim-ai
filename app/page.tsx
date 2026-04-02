@@ -184,6 +184,8 @@ export default function IryouLP() {
               { '@type': 'Question', name: '応招義務があっても診察を断れますか？', acceptedAnswer: { '@type': 'Answer', text: '医師法上の応招義務と診療拒否権の区別をAIが判定します。暴力・脅迫・著しく不当な要求があれば診察を断れるケースをサポートします。' } },
               { '@type': 'Question', name: '出力をそのまま使えますか？', acceptedAnswer: { '@type': 'Answer', text: '初動スクリプト・記録テンプレートはそのままご活用いただけます。警察通報・弁護士相談が必要な場合はAIが判定して誘導します。' } },
               { '@type': 'Question', name: '料金はいくらですか？', acceptedAnswer: { '@type': 'Answer', text: '月額¥9,800（プレミアム）で全機能が使えます。病院・クリニック複数スタッフでの利用はお問い合わせください。' } },
+              { '@type': 'Question', name: '2026年10月のカスハラ対策義務化とは何ですか？', acceptedAnswer: { '@type': 'Answer', text: '改正労働施策総合推進法（2026年10月1日施行）により、医療機関を含む全事業者にカスタマーハラスメント対策が義務化されます。対応マニュアルの整備・証拠記録システムの導入・スタッフへの対応研修が求められます。体制整備が完了していない場合、行政指導の対象となる可能性があります。' } },
+              { '@type': 'Question', name: '厚労省ガイドライン準拠の対応文とはどういう意味ですか？', acceptedAnswer: { '@type': 'Answer', text: '厚生労働省が公表している「医療機関における医療従事者の安全確保のためのガイドライン」に基づいた、法的に整合性のある対応文・インシデントレポートのことです。AIが自動生成するためすぐに使えます。' } },
             ],
           }).replace(/</g, '\\u003c'),
         }}
@@ -722,7 +724,7 @@ export default function IryouLP() {
               <p className="text-4xl font-black text-white mb-1">¥9,800<span className="text-base font-normal text-white/50">/月</span></p>
               <p className="text-white/40 text-sm mb-6">1事業所向け</p>
               <ul className="space-y-3 text-sm text-white/80 mb-8">
-                {["カスハラ対応文 月100件生成", "インシデントレポート生成", "医療特化プロンプト対応", "いつでも解約可能"].map((f) => (
+                {["カスハラ対応文 月100件生成", "インシデントレポート生成", "医療特化プロンプト対応", "カスハラ義務化対応サポート", "厚労省ガイドライン準拠の対応文生成", "証拠記録・法的対応文書", "いつでも解約可能"].map((f) => (
                   <li key={f} className="flex items-center gap-2"><span className="text-green-500 font-bold"></span>{f}</li>
                 ))}
               </ul>
@@ -795,6 +797,8 @@ export default function IryouLP() {
               { q: "応招義務があっても診察を断れますか？", a: "医師法上の応招義務と診療拒否権の区別をAIが判定します。暴力・脅迫・著しく不当な要求があれば診察を断れるケースをサポートします。" },
               { q: "出力をそのまま使えますか？", a: "初動スクリプト・記録テンプレートはそのままご活用いただけます。警察通報・弁護士相談が必要な場合はAIが判定して誘導します。" },
               { q: "料金はいくらですか？", a: "月額¥9,800（プレミアム）で全機能が使えます。病院・クリニック複数スタッフでの利用はX @levona_designへお問い合わせください。" },
+              { q: "2026年10月のカスハラ対策義務化とは何ですか？", a: "改正労働施策総合推進法（2026年10月1日施行）により、医療機関を含む全事業者にカスハラ対策が義務化されます。対応マニュアルの整備・証拠記録システムの導入・スタッフ研修が求められます。体制が整っていない場合、行政指導の対象となる可能性があります。" },
+              { q: "厚労省ガイドライン準拠の対応文とはどういう意味ですか？", a: "厚生労働省が公表している医療機関向けカスハラ対策ガイドラインに基づいた、法的に整合性のある対応文・インシデントレポートです。AIが自動生成するためすぐに活用できます。" },
             ].map((faq, i) => (
               <div key={i} className="backdrop-blur-md bg-white/[0.07] border border-white/15 rounded-xl p-5 shadow-lg">
                 <p className="font-semibold text-blue-300 mb-2 text-sm">Q. {faq.q}</p>
