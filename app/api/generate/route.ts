@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 import { isActiveSubscription } from "@/lib/supabase";
+import { createErrorResponse, getClaudeErrorMessage } from "@/lib/claude-error";
 
 export const dynamic = "force-dynamic";
 
@@ -215,7 +216,9 @@ ${severityGuidance}
             }
           }
         } catch (err) {
-          console.error(err);
+          const status = (err as { status?: number })?.status;
+          const msg = getClaudeErrorMessage(status ?? 500);
+          controller.enqueue(new TextEncoder().encode(`\nERROR:${JSON.stringify({ error: msg })}`));
           controller.error(err);
         } finally {
           controller.close();
@@ -225,7 +228,6 @@ ${severityGuidance}
 
     return new Response(readableStream, { headers });
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "AI生成中にエラーが発生しました。しばらく待ってから再試行してください。" }, { status: 500 });
+    return createErrorResponse(err);
   }
 }
