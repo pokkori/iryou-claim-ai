@@ -199,6 +199,8 @@ export default function IryouLP() {
             name: '医療クレームAI',
             operatingSystem: 'Web',
             applicationCategory: 'BusinessApplication',
+            description: '医療機関・クリニック向けカスタマーハラスメント対応AIツール。厚労省ガイドライン準拠の初動スクリプト・インシデントレポートを自動生成。応招義務と診療拒否権の判定機能搭載。2026年10月義務化対応。',
+            url: 'https://iryou-claim-ai.vercel.app',
             offers: { '@type': 'Offer', price: 0, priceCurrency: 'JPY' },
           }).replace(/</g, '\\u003c'),
         }}
