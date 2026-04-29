@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/line-step",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
